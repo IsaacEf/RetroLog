@@ -21,6 +21,7 @@ func Register(context *gin.Context) {
 	// validate email
 	if err := checkmail.ValidateFormat(input.Email); err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	// create new user
@@ -29,7 +30,14 @@ func Register(context *gin.Context) {
 		Password: input.Password,
 	}
 
-	// save user in db
+	// hash user password
+	err := user.BeforeSave()
+
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	}
+
+	// save user in DB
 	savedUser, err := user.Save()
 
 	if err != nil {

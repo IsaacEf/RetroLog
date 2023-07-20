@@ -1,7 +1,6 @@
 package model
 
 import (
-	"errors"
 	"html"
 	"strings"
 
@@ -24,7 +23,7 @@ func (user *User) ValidatePassword(password string) error {
 	return bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
 }
 
-func (user *User) BeforeSave(*gorm.DB) error {
+func (user *User) BeforeSave() error {
 	passwordHash, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return err
@@ -52,5 +51,16 @@ func FindUserByEmail(email string) (User, error) {
 	if err != nil {
 		return User{}, err
 	}
+	return user, nil
+}
+
+func FindUserById(id uint) (User, error) {
+	var user User
+	// err := database.Database.Preload("Entries").Where("ID=?", id).Find(&user).Error
+
+	// if err != nil {
+	// 	return User{}, err
+	// }
+
 	return user, nil
 }
