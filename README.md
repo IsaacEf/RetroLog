@@ -3,7 +3,6 @@
 ### Team: 
 Niels Mandrus, Kulindu Cooray, Isaac Efrosman, Michael Meng, Colin Langella
 
-
 ### Backend Setup
 
 Be sure to have the most recent version of Golang installed.
