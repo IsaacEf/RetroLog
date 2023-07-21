@@ -9,30 +9,41 @@ import (
 	"net/http"
 )
 
-func Register(context *gin.Context) {
+// Testable piece of Registration Validation logic
+func RegisterValidateInput(context *gin.Context) (model.User, error) {
 	var input = model.AuthenticationInput{}
 
 	// validates JSON request
 	if err := context.ShouldBindJSON(&input); err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
+		return model.User{}, err
 	}
 
 	// validate email
 	if err := checkmail.ValidateFormat(input.Email); err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
+		return model.User{}, err
 	}
 
 	// create new user
-	user := model.User{
+	validatedUser := model.User{
 		Email:    input.Email,
 		Password: input.Password,
 	}
 
 	// hash user password
-	err := user.BeforeSave()
+	err := validatedUser.BeforeSave()
 
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	}
+
+	return validatedUser, nil
+}
+
+func Register(context *gin.Context) {
+	// validate user input before saving to database
+	user, err := RegisterValidateInput(context)
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
