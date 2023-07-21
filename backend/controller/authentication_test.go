@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"bytes"
 	"github.com/gin-gonic/gin"
 	"net/http/httptest"
 	"testing"
@@ -13,17 +12,24 @@ func TestRegister(t *testing.T) {
 	w := httptest.NewRecorder()
 	c, _ := gin.CreateTestContext(w)
 
-	testUser := []byte(`{
-    "Email:test@testing.com",
-    "Password:testing123"
-  }`)
+	// testUser := []byte(`{
+	//    "Email:test@testing.com",
+	//    "Password:testing123"
+	//  }`)
+	c.Params = []gin.Param{
+		gin.Param{Key: "email", Value: "test@testing.com"},
+		gin.Param{Key: "password", Value: "testing123"}}
 
-	r := httptest.NewRequest("POST", "http://localhost:8000/auth/register", bytes.NewBuffer(testUser))
+	//r := httptest.NewRequest("POST", "http://localhost:8000/auth/register", bytes.NewBuffer(testUser))
 
-	Register(c).serveHttp(w, r)
+	Register(c)
 
-	if w.Code != 201 {
-		panic("Register Test failed")
+	got := w.Code
+	want := 201
+
+	if got != want {
+		t.Errorf("got %d want %d", got, want)
+		t.Errorf("body:%q", w.Body)
 	}
 }
 
