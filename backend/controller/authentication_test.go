@@ -1,9 +1,16 @@
 package controller
 
 import (
-	"github.com/gin-gonic/gin"
+	"backend/model"
+
+	"bytes"
+	"encoding/json"
+	"io"
+	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/gin-gonic/gin"
 )
 
 func TestRegister(t *testing.T) {
@@ -12,20 +19,35 @@ func TestRegister(t *testing.T) {
 	w := httptest.NewRecorder()
 	c, _ := gin.CreateTestContext(w)
 
-	// testUser := []byte(`{
-	//    "Email:test@testing.com",
-	//    "Password:testing123"
-	//  }`)
-	c.Params = []gin.Param{
-		gin.Param{Key: "email", Value: "test@testing.com"},
-		gin.Param{Key: "password", Value: "testing123"}}
+	c.Request = &http.Request{
+		Header: make(http.Header),
+	}
 
-	//r := httptest.NewRequest("POST", "http://localhost:8000/auth/register", bytes.NewBuffer(testUser))
+	c.Request.Method = "POST"
+	c.Request.Header.Set("Content-Type", "application/json")
 
-	RegisterValidateInput(c)
+	jsonbytes, err := json.Marshal(model.AuthenticationInput{
+		Email:    "testemail@gmail.com",
+		Password: "password123",
+	})
+
+	if err != nil {
+		panic(err)
+	}
+
+	// the request body must be an io.ReadCloser
+	// the bytes buffer though doesn't implement io.Closer,
+	// so you wrap it in a no-op closer
+	c.Request.Body = io.NopCloser(bytes.NewBuffer(jsonbytes))
+
+	_, err2 := RegisterValidateInput(c)
+
+	if err2 != nil {
+		t.Errorf("error: %q", err.Error())
+	}
 
 	got := w.Code
-	want := 201
+	want := 200
 
 	if got != want {
 		t.Errorf("got %d want %d", got, want)

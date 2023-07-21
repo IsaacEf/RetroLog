@@ -15,13 +15,13 @@ func RegisterValidateInput(context *gin.Context) (model.User, error) {
 
 	// validates JSON request
 	if err := context.ShouldBindJSON(&input); err != nil {
-		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		context.JSON(http.StatusBadRequest, gin.H{"error": "failed to parse json"})
 		return model.User{}, err
 	}
 
 	// validate email
 	if err := checkmail.ValidateFormat(input.Email); err != nil {
-		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		context.JSON(http.StatusBadRequest, gin.H{"error": "email format invalid"})
 		return model.User{}, err
 	}
 
