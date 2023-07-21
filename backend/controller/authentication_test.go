@@ -1,16 +1,30 @@
+package controller
+
+import (
+	"bytes"
+	"github.com/gin-gonic/gin"
+	"net/http/httptest"
+	"testing"
+)
+
 func TestRegister(t *testing.T) {
-	httpposturl := "http://localhost:8000/auth/register"
+	gin.SetMode(gin.TestMode)
+
+	w := httptest.NewRecorder()
+	c, _ := gin.CreateTestContext(w)
+
 	testUser := []byte(`{
-    "Email:"    "test@testing.com",
-    "Password:" "testing123"
+    "Email:test@testing.com",
+    "Password:testing123"
   }`)
-	request, _ := http.NewRequest("POST", httpposturl, bytes.NewBuffer(testUser))
 
-	request.Header.Set("Content-Type", "application/json; charset=UTF-8")
+	r := httptest.NewRequest("POST", "http://localhost:8000/auth/register", bytes.NewBuffer(testUser))
 
-	response := httptest.NewRecorder()
-	server.ServeHTTP(response, request)
-	assert.Equal(t, response.Code, 201)
+	Register(c).serveHttp(w, r)
+
+	if w.Code != 201 {
+		panic("Register Test failed")
+	}
 }
 
 // https://stackoverflow.com/questions/59186562/unit-testing-with-gin-gonic
