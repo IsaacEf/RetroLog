@@ -10,6 +10,7 @@ import (
 
 	"fmt"
 	"log"
+	"net/http"
 )
 
 func main() {
@@ -33,6 +34,14 @@ func loadDatabase() {
 // run server
 func serveApplication() {
 	router := gin.Default()
+
+	router.LoadHTMLGlob("../retro-log/build/index.html")  // point to your index.html
+	router.Static("/static", "../retro-log/build/static") // point to the static directory
+
+	// Setup route
+	router.NoRoute(func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", nil)
+	})
 
 	publicRoutes := router.Group("/auth")
 	publicRoutes.POST("/register", controller.Register)
