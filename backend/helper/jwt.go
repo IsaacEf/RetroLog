@@ -50,6 +50,7 @@ func CurrentUser(context *gin.Context) (model.User, error) {
 
 	// locate the user based on userId
 	user, err := model.FindUserById(userId)
+
 	if err != nil {
 		return model.User{}, err
 	}

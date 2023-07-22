@@ -1,8 +1,10 @@
 package controller
 
 import (
+	"backend/database"
 	"backend/helper"
 	"backend/model"
+
 	"github.com/badoux/checkmail"
 	"github.com/gin-gonic/gin"
 
@@ -31,19 +33,20 @@ func RegisterValidateInput(context *gin.Context) (model.User, error) {
 		Password: input.Password,
 	}
 
-	// hash user password
-	err := validatedUser.BeforeSave()
-
-	if err != nil {
-		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	}
-
 	return validatedUser, nil
 }
 
 func Register(context *gin.Context) {
 	// validate user input before saving to database
 	user, err := RegisterValidateInput(context)
+
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	// hash user password
+	err = user.BeforeSave(database.Database)
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
@@ -53,6 +56,7 @@ func Register(context *gin.Context) {
 
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	// sends back details of saved user as response
