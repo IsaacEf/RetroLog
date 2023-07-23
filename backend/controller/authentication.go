@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"backend/database"
+	// "backend/database"
 	"backend/helper"
 	"backend/model"
 
@@ -45,8 +45,9 @@ func Register(context *gin.Context) {
 		return
 	}
 
-	// hash user password
-	err = user.BeforeSave(database.Database)
+	// // hash user password
+	// err = user.BeforeSave(database.Database)
+
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}

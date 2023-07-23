@@ -8,15 +8,15 @@ import (
 
 type Backwork struct {
 	gorm.Model
-	FileName       string    `gorm:"type:varchar(255);not null;index" json:"filename"`
-	Course         Course    `gorm:"foreignKey:CourseID"`
-	CourseID       uint      `gorm:"not null;index"`
-	Professor      Professor `gorm:"foreignKey:ProfessorID"`
-	ProfessorID    uint      `gorm:"not null;index"`
-	Verified       bool      `gorm:"type:boolean;default:false;index"`
-	User           User      `gorm:"foreignKey:UserID"`
-	UserID         uint      `gorm:"not null;index"`
-	RelevanceScore int       `gorm:"type:int;default:0"`
+	FileName       string    `gorm:"type:varchar(255);not null;index" json:"fileName"`
+	Course         Course    `gorm:"foreignKey:CourseID" json:"course,omitempty"`
+	CourseID       uint      `gorm:"not null;index" json:"courseId"`
+	Professor      Professor `gorm:"foreignKey:ProfessorID" json:"professor,omitempty"`
+	ProfessorID    uint      `gorm:"not null;index" json:"professorId"`
+	Verified       bool      `gorm:"type:boolean;default:false;index" json:"verified,omitempty"`
+	User           User      `gorm:"foreignKey:UserID" json:"user,omitempty"`
+	UserID         uint      `gorm:"not null;index" json:"userId"`
+	RelevanceScore int       `gorm:"type:int;default:0" json:"relevanceScore,omitempty"`
 }
 
 // save the backwork to the database

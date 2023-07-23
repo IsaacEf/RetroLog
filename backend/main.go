@@ -30,6 +30,9 @@ func loadEnv() {
 func loadDatabase() {
 	database.Connect()
 	database.Database.AutoMigrate(&model.User{})
+	database.Database.AutoMigrate(&model.Backwork{})
+	database.Database.AutoMigrate(&model.Course{})
+	database.Database.AutoMigrate(&model.Professor{})
 }
 
 // run server
@@ -52,6 +55,7 @@ func serveApplication() {
 	protectedRoutes.Use(middleware.JWTAuthMiddleware())
 	protectedRoutes.POST("/entry", controller.AddBackwork)
 	protectedRoutes.GET("/entry", controller.GetAllBackworks)
+	protectedRoutes.GET("/professors", controller.GetAllProfessors)
 
 	router.Run(":8000")
 	fmt.Println("Server running on port 8000")
