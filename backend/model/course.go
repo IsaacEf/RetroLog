@@ -14,7 +14,7 @@ type Course struct {
 }
 
 // search database for CourseID
-func findCourseByID(id uint) (Course, error) {
+func FindCourseByID(id uint) (Course, error) {
 	var course Course
 	err := database.Database.Preload("Backworks").Where("ID=?", id).Find(&course).Error
 
@@ -23,4 +23,13 @@ func findCourseByID(id uint) (Course, error) {
 	}
 
 	return course, nil
+}
+
+func FindCourse(course *Course) error {
+	err := database.Database.Preload("Backworks").Where("department=?", course.Department).Where("course_id=?", course.CourseID).Find(course).Error
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
