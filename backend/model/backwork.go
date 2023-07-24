@@ -8,6 +8,7 @@ import (
 
 type Backwork struct {
 	gorm.Model
+	UUID           string `gorm:"type:varchar(255);not null;index" json:"uuid"`
 	FileName       string `gorm:"type:varchar(255);not null;index" json:"fileName"`
 	FileURL        string `gorm:"type:varchar(255);not null;" json:"url"`
 	CourseID       uint   `gorm:"not null;index" json:"courseId"`

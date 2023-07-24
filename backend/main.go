@@ -5,6 +5,7 @@ import (
 	"backend/database"
 	"backend/middleware"
 	"backend/model"
+	"backend/storage"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -17,7 +18,12 @@ import (
 func main() {
 	loadEnv()
 	loadDatabase()
+	loadStorage()
 	serveApplication()
+}
+
+func loadStorage() {
+	storage.Connect()
 }
 
 func loadEnv() {
@@ -53,7 +59,7 @@ func serveApplication() {
 
 	protectedRoutes := router.Group("/api")
 	protectedRoutes.Use(middleware.JWTAuthMiddleware())
-	protectedRoutes.POST("/entry", controller.AddBackwork)
+	protectedRoutes.POST("/upload", controller.AddBackwork)
 	protectedRoutes.GET("/entry", controller.GetAllBackworks)
 	protectedRoutes.GET("/professors", controller.GetAllProfessors)
 	protectedRoutes.GET("/courses", controller.GetAllCourses)
