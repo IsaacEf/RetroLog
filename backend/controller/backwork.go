@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"backend/database"
 	"backend/helper"
 	"backend/model"
 	"backend/storage"
@@ -13,7 +14,7 @@ import (
 )
 
 func AddBackwork(context *gin.Context) {
-	var input model.BackworkInput
+	var input model.BackworkUpload
 
 	err := context.ShouldBindQuery(&input)
 	if err != nil {
@@ -58,12 +59,53 @@ func AddBackwork(context *gin.Context) {
 }
 
 func GetAllBackworks(context *gin.Context) {
-	user, err := helper.CurrentUser(context)
+	var input model.BackworksQuery
+	err := context.ShouldBindJSON(&input)
 
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	context.JSON(http.StatusOK, gin.H{"data": user})
+	db := database.Database
+	var backworks []model.Backwork
+
+	// The CourseID field is required, so we can add it to the initial query.
+	db = db.Where("course_id = ?", input.CourseID)
+
+	// The ProfessorID field is optional, so we add it to the query only if it is present.
+	if input.ProfessorID != 0 {
+		db = db.Where("professor_id = ?", input.ProfessorID)
+	}
+
+	// The Verified field is optional, so we add it to the query only if it is present.
+	if input.Verified {
+		db = db.Where("verified = ?", input.Verified)
+	}
+
+	// Execute the query and return the results.
+	if err := db.Find(&backworks).Error; err != nil {
+		context.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		return
+	}
+
+	context.JSON(http.StatusOK, gin.H{"backworks": backworks})
+}
+
+func GetBackwork(context *gin.Context) {
+	var input model.BackworkQuery
+	err := context.ShouldBindJSON(&input)
+
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	var backwork model.Backwork
+	if err := database.Database.Where("ID = ?", input.ID).Find(&backwork).Error; err != nil {
+		context.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		return
+	}
+
+	context.JSON(http.StatusOK, gin.H{"backwork": backwork})
 }
