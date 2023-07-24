@@ -4,6 +4,7 @@ import (
 	"backend/helper"
 	"backend/model"
 	"backend/storage"
+	"fmt"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -14,7 +15,8 @@ import (
 func AddBackwork(context *gin.Context) {
 	var input model.BackworkInput
 
-	if err := context.ShouldBindJSON(&input); err != nil {
+	err := context.ShouldBindQuery(&input)
+	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -24,6 +26,8 @@ func AddBackwork(context *gin.Context) {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+
+	fmt.Println(input)
 
 	var backwork model.Backwork
 	backwork.UserID = user.ID

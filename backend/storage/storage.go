@@ -10,8 +10,6 @@ import (
 
 var Storage *storage_go.Client
 
-var BUCKET = os.Getenv("BUCKET")
-
 func Connect() {
 	var err error
 	host := os.Getenv("STORAGE_URL")
@@ -28,6 +26,11 @@ func Connect() {
 
 // Uploads the file and returns the download url
 func UploadBackwork(name string, file io.Reader) string {
-	Storage.UploadFile(BUCKET, name, file)
-	return Storage.GetPublicUrl(BUCKET, name).SignedURL
+	fmt.Printf("Saving %q to bucket: %q", name, "Backwork")
+
+	resp := Storage.UploadFile("Backwork", name, file)
+
+	fmt.Println(resp)
+
+	return Storage.GetPublicUrl("Backwork", name).SignedURL
 }
