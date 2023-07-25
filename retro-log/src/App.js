@@ -12,10 +12,12 @@ class App extends React.Component {
           {
             id: 2,
             name: 'CSCI - Computer Science',
+           
             classes: [
               {
                 id: 2,
-                name: 'Computer Science 1',
+                name: 'CSCI-1100 Computer Science 1 (4 Credits)',
+                professors: ["Professor A", "Professor B"], 
                 backwork: [
                   {type: 'Lab', name: 'Lab 1'},
                   {type: 'Lab', name: 'Lab 2'},
@@ -24,6 +26,19 @@ class App extends React.Component {
                   {type: 'Homework', name: 'Homework 2'},
                 ],
               },
+              {
+                id: 0,
+                name: 'CSCI-1200 Data Structures (4 Credits)',
+                professors: ["Professor A", "Professor B"], 
+                backwork: [
+                  {type: 'Lab', name: 'Lab 1'},
+                  {type: 'Lab', name: 'Lab 2'},
+                  {type: 'Homework', name: 'Homework 1'},
+                  {type: 'Exam', name: 'Midterm'},
+                  {type: 'Homework', name: 'Homework 2'},
+                ],
+              },
+              
             ],
           },
           // Other majors...
@@ -33,7 +48,8 @@ class App extends React.Component {
             classes: [
               {
                 id: 3,
-                name: 'Chemsitry 1',
+                name: 'CHME-1100 Chemistry 1 (4 Credits)',
+                professors: ["Professor A", "Professor B"], 
                 backwork: [
                   {type: 'Lab', name: 'Lab 1'},
                   {type: 'Lab', name: 'Lab 2'},
@@ -56,10 +72,12 @@ class App extends React.Component {
           {
             id: 5,
             name: 'BMED - Biomedical Engineering',
+            professors: ["Professor A", "Professor B"], 
             classes: [
               {
                 id: 5,
-                name: 'Biomechanics',
+                name: 'BMED-2540 Biomechanics (4 Credits)',
+                professors: ["Professor A", "Professor B"], 
                 backwork: [
                   {type: 'Lab', name: 'Lab 1'},
                   {type: 'Lab', name: 'Lab 2'},
@@ -77,7 +95,8 @@ class App extends React.Component {
             classes: [
               {
                 id: 6,
-                name: 'Introuction To Computational Chemical Engineering',
+                name: 'CHME-2050 Introuction To Computational Chemical Engineering (3 Credits)',
+                professors: ["Professor A", "Professor B"], 
                 backwork: [
                   {type: 'Lab', name: 'Lab 1'},
                   {type: 'Lab', name: 'Lab 2'},
@@ -93,10 +112,110 @@ class App extends React.Component {
         ],
       },
 
+        // Other departments...
+        {
+          id: 7,
+          name: 'Humanities, Arts, and Social Sciences',
+          majors: [
+            {
+              id: 8,
+              name: 'ARTS - Arts',
+              classes: [
+                {
+                  id: 8,
+                  name: 'ARTS-2180 Deep Listening (4 Credits)',
+                  professors: ["Professor A", "Professor B"], 
+                  backwork: [
+                    {type: 'Lab', name: 'Lab 1'},
+                    {type: 'Lab', name: 'Lab 2'},
+                    {type: 'Homework', name: 'Homework 1'},
+                    {type: 'Exam', name: 'Midterm'},
+                    {type: 'Homework', name: 'Homework 2'},
+                  ],
+                },
+              ],
+            },
+            // Other majors...
+            {
+              id: 9,
+              name: 'COGS - Cognitive Science',
+           
+              classes: [
+                {
+                  id: 9,
+                  name: 'COGS-2120 Intro to Cognitive Science (4 Credits)',
+                  professors: ["Professor A", "Professor B"], 
+                  backwork: [
+                    {type: 'Lab', name: 'Lab 1'},
+                    {type: 'Lab', name: 'Lab 2'},
+                    {type: 'Homework', name: 'Homework 1'},
+                    {type: 'Exam', name: 'Midterm'},
+                    {type: 'Homework', name: 'Homework 2'},
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        
+        // Other departments...
+      {
+        id: 10,
+        name: 'Business',
+        majors: [
+          {
+            id: 11,
+            name: 'BMED - Biomedical Engineering',
+            classes: [
+              {
+                id: 11,
+                name: 'BMED-2540 Biomechanics (4 Credits)',
+                professors: ["Professor A", "Professor B"], 
+                backwork: [
+                  {type: 'Lab', name: 'Lab 1'},
+                  {type: 'Lab', name: 'Lab 2'},
+                  {type: 'Homework', name: 'Homework 1'},
+                  {type: 'Exam', name: 'Midterm'},
+                  {type: 'Homework', name: 'Homework 2'},
+                ],
+              },
+            ],
+          },
+         
+          {
+            id: 12,
+            name: 'CHME - Chemical Engineering',
+            classes: [
+              {
+                id: 12,
+                name: 'CHME-2050 Introuction To Computational Chemical Engineering (3 Credits)',
+                professors: ["Professor A", "Professor B"], 
+                backwork: [
+                  {type: 'Lab', name: 'Lab 1'},
+                  {type: 'Lab', name: 'Lab 2'},
+                  {type: 'Homework', name: 'Homework 1'},
+                  {type: 'Exam', name: 'Midterm'},
+                  {type: 'Homework', name: 'Homework 2'},
+                ],
+              },
+            ],
+          },
+        ],
+      },
     ],
     currentDepartment: null,
     currentMajor: null,
     currentClass: null,
+    search: '',
+    selectedProfessor: '',
+  };
+
+  handleSearchChange = (event) => {
+    this.setState({ search: event.target.value });
+  };
+
+  handleProfessorChange = (event) => {
+    this.setState({ selectedProfessor: event.target.value });
   };
 
   handleDepartmentClick = (id) => {
@@ -122,14 +241,42 @@ class App extends React.Component {
   };
 
   render() {
-    const { departments, currentDepartment, currentMajor, currentClass } = this.state;
+    const { departments, currentDepartment, currentMajor, currentClass, search, selectedProfessor } = this.state;
 
     if (currentClass !== null) {
       const classData = departments
         .find((dept) => dept.id === currentDepartment)
         .majors.find((major) => major.id === currentMajor)
         .classes.find((cls) => cls.id === currentClass);
-      return <Class data={classData} onBack={this.handleBackClick} />;
+      
+      const filteredBackwork = classData.backwork.filter(bw => bw.name.toLowerCase().includes(search.toLowerCase()));
+
+      return (
+        <div>
+          <button onClick={this.handleBackClick}>Go Back</button>
+          <h2>{classData.name}</h2>
+          
+          <label>
+            Search Backwork:
+            <input type="text" value={search} onChange={this.handleSearchChange} />
+          </label>
+
+          <label>
+            Select Professor:
+            <select value={selectedProfessor} onChange={this.handleProfessorChange}>
+              {classData.professors.map(professor => (
+                <option value={professor}>{professor}</option>
+              ))}
+            </select>
+          </label>
+
+          <ul>
+            {filteredBackwork.map((bw, index) => (
+              <li key={index}>{bw.type}: {bw.name}</li>
+            ))}
+          </ul>
+        </div>
+      );
     }
 
     if (currentMajor !== null) {
@@ -172,6 +319,9 @@ class App extends React.Component {
       <div className="App">
         <header className="App-header">
           <h1>Welcome to Retrolog</h1>
+          <div className="search-bar">
+            <input type="text" placeholder="Search Courses" />
+          </div>
         </header>
         <nav>
           <ul>

@@ -26,7 +26,7 @@ func TestRegister(t *testing.T) {
 	c.Request.Method = "POST"
 	c.Request.Header.Set("Content-Type", "application/json")
 
-	jsonbytes, err := json.Marshal(model.AuthenticationInput{
+	jsonbytes, err := json.Marshal(model.RegisterInput{
 		Email:    "testemail@gmail.com",
 		Password: "password123",
 	})
