@@ -45,13 +45,6 @@ func Register(context *gin.Context) {
 		return
 	}
 
-	// // hash user password
-	// err = user.BeforeSave(database.Database)
-
-	if err != nil {
-		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	}
-
 	// save user in DB
 	savedUser, err := user.Save()
 

@@ -55,7 +55,7 @@ func AddBackwork(context *gin.Context) {
 		return
 	}
 
-	context.JSON(http.StatusCreated, gin.H{"data": savedBackwork})
+	context.JSON(http.StatusCreated, gin.H{"backwork": savedBackwork})
 }
 
 func GetAllBackworks(context *gin.Context) {
