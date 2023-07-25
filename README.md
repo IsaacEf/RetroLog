@@ -11,8 +11,8 @@ Be sure to have the latest version of npm installed
 
 Check the version and ensure it matches
 
-`node -v
- npm -v`
+`$ node -v
+ $ npm -v`
 
 ### Backend Setup
 
