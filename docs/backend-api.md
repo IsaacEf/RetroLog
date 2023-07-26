@@ -285,7 +285,7 @@ Authorization: Bearer <JWT>
 {
 	// The only required field
 	"courseid":<COURSE-DB-ID>, 
-	"professorid": <COURSE-NUMBER>, 
+	"professorid": <PROFESSOR-DB-ID>, 
 	"verified": bool
 }
 ```
