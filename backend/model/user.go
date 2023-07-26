@@ -15,8 +15,10 @@ import (
 // User Struct, Just contains Email and Password fields
 type User struct {
 	gorm.Model
-	Email    string `gorm:"type:varchar(100);unique_index" json:"email"`
-	Password string `gorm:"size:100;not null"              json:"-"`
+	Email     string `gorm:"type:varchar(100);unique_index" json:"email"`
+	Password  string `gorm:"size:100;not null"              json:"-"`
+	FirstName string `gorm:"type:varchar(100);" json:"firstname"`
+	LastName  string `gorm:"type:varchar(100);" json:"lastname"`
 }
 
 // check that the password hash is correct

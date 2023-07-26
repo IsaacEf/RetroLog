@@ -13,7 +13,7 @@ import (
 
 // Testable piece of Registration Validation logic
 func RegisterValidateInput(context *gin.Context) (model.User, error) {
-	var input = model.AuthenticationInput{}
+	var input = model.RegisterInput{}
 
 	// validates JSON request
 	if err := context.ShouldBindJSON(&input); err != nil {
@@ -29,8 +29,10 @@ func RegisterValidateInput(context *gin.Context) (model.User, error) {
 
 	// create new user
 	validatedUser := model.User{
-		Email:    input.Email,
-		Password: input.Password,
+		Email:     input.Email,
+		Password:  input.Password,
+		FirstName: input.FirstName,
+		LastName:  input.LastName,
 	}
 
 	return validatedUser, nil
@@ -58,7 +60,7 @@ func Register(context *gin.Context) {
 }
 
 func Login(context *gin.Context) {
-	var input model.AuthenticationInput
+	var input model.LoginInput
 
 	// write JSON to input struct
 	if err := context.ShouldBindJSON(&input); err != nil {
