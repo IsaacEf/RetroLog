@@ -8,6 +8,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
 )
 
 func GetAllProfessors(context *gin.Context) {
@@ -15,6 +16,7 @@ func GetAllProfessors(context *gin.Context) {
 
 	if err := context.ShouldBindJSON(&input); err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": "failed to parse json"})
+		log.Error(err)
 		return
 	}
 
@@ -24,6 +26,7 @@ func GetAllProfessors(context *gin.Context) {
 
 	if err != nil {
 		context.JSON(http.StatusNotFound, gin.H{"error": "database query failed"})
+		log.Error(err)
 		return
 	}
 
@@ -35,6 +38,7 @@ func GetAllCourses(context *gin.Context) {
 
 	if err := context.ShouldBindJSON(&input); err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": "failed to parse json"})
+		log.Error(err)
 		return
 	}
 
@@ -43,6 +47,7 @@ func GetAllCourses(context *gin.Context) {
 
 	if err != nil {
 		context.JSON(http.StatusNotFound, gin.H{"error": "database query failed"})
+		log.Error(err)
 		return
 	}
 
@@ -54,12 +59,14 @@ func GetCourse(context *gin.Context) {
 
 	if err := context.ShouldBindJSON(&input); err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": "failed to parse json"})
+		log.Error(err)
 		return
 	}
 
 	err := model.FindCourse(&input)
 	if err != nil {
 		context.JSON(http.StatusNotFound, gin.H{"error": "database query failed"})
+		log.Error(err)
 		return
 	}
 
