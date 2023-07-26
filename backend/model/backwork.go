@@ -13,7 +13,7 @@ type Backwork struct {
 	FileURL        string `gorm:"type:varchar(255);not null;" json:"url"`
 	CourseID       uint   `gorm:"not null;index" json:"courseId"`
 	ProfessorID    uint   `gorm:"not null;index" json:"professorId"`
-	Verified       bool   `gorm:"type:boolean;default:false;index" json:"verified,omitempty"`
+	Verified       bool   `gorm:"type:boolean;default:false;index" json:"verified"`
 	UserID         uint   `gorm:"not null;index" json:"userId"`
 	RelevanceScore int    `gorm:"type:int;default:0" json:"relevanceScore,omitempty"`
 }
