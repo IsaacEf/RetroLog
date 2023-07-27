@@ -1,21 +1,28 @@
 import React, { useState } from 'react'
 import Validation from './LoginValidation'
 import axios from 'axios'
+import { useNavigate } from "react-router-dom"
 
 export default function Login() {
     const [values,setValues] = useState({
         email: '',
         password: ''
     })
+    const navigate = useNavigate();
     const [errors, setErrors] = useState({})
     const handleInput = (event) => {
-      setValues(prev => ({...prev,[event.target.name]: [event.target.value]}))
+      setValues({...values,[event.target.name]: event.target.value})
     }
     const handleSubmit = (event) => {
       event.preventDefault();
       setErrors(Validation(values));
-      axios.post('http://localhost:8000/auth/login', {values})
-      .then(response => console.log(response))
+      axios.post('http://localhost:8000/auth/login', {
+        email: values.email,
+        password: values.password
+      })
+      .then(response => {
+        navigate('/Home')
+      })
       .catch(err => console.log(err))
     }
 

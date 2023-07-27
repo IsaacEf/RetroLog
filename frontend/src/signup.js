@@ -1,27 +1,36 @@
 import React, { useState } from 'react'
 import Validation from './SignupValidation'
 import axios from 'axios'
+import { useNavigate } from "react-router-dom"
 
 export default function SignUp() {
     const [values,setValues] = useState({
-      fname: '',
-      lname: '',
+      firstname: '',
+      lastname: '',
       email: '',
       password: ''
     })
+    const navigate = useNavigate();
     const [errors, setErrors] = useState({})
     const handleInput = (event) => {
-      setValues(prev => ({...prev,[event.target.name]: [event.target.value]}))
+      setValues({...values,[event.target.name]: event.target.value})
     }
     const handleSubmit = (event) => {
       event.preventDefault();
       setErrors(Validation(values));
-      axios.post('http://localhost:8000/auth/register', {values})
-      .then(response => console.log(response))
+      axios.post('http://localhost:8000/auth/register', {
+        firstname:values.firstname,
+        lastname: values.lastname,
+        email: values.email,
+        password: values.password
+      })
+      .then(response => {
+        navigate('/sign-in')
+      })
       .catch(err => console.log(err))
     }
     return (
-      <form action = "" onSubmit={handleSubmit}>
+      <form action = "/sign-in" onSubmit={handleSubmit}>
         <h3>Sign Up</h3>
 
         <div className="mb-3">
@@ -30,9 +39,9 @@ export default function SignUp() {
             type="text"
             className="form-control"
             placeholder="First name"
-            name = 'fname'
+            name = 'firstname'
             onChange={handleInput}/>
-            {errors.fname && <span className='text-danger'>{errors.fname}</span>}
+            {errors.firstname && <span className='text-danger'>{errors.firstname}</span>}
         </div>
 
         <div className="mb-3">
@@ -40,9 +49,9 @@ export default function SignUp() {
           <input type="text" 
           className="form-control" 
           placeholder="Last name"
-          name = 'lname'
+          name = 'lastname'
           onChange={handleInput} />
-          {errors.lname && <span className='text-danger'>{errors.lname}</span>}
+          {errors.lastname && <span className='text-danger'>{errors.lastname}</span>}
         </div>
 
         <div className="mb-3">

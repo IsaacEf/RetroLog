@@ -6,6 +6,7 @@ import logo from './retro_logo.png'
 
 import Login from './login'
 import SignUp from './signup'
+import Home from './Home'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               <Route exact path="/" element={<Login />} />
               <Route path="/sign-in" element={<Login />} />
               <Route path="/sign-up" element={<SignUp />} />
+              <Route path="/home" element = {<Home />} />
             </Routes>
           </div>
         </div>

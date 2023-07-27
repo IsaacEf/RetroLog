@@ -1,3 +1,5 @@
 .env.local
 retro-log/build
 retro-log/node_modules
+frontend/build
+frontend/node_modules
