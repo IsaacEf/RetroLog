@@ -6,18 +6,18 @@ function Validation(values) {
     //at least 1 digit, at least one character ,at least one capital character and minimum 8 
     const password_pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/
 
-    if (values.fname === "") {
-        error.fname = "First Name should not be empty"
+    if (values.firstname === "") {
+        error.firstname = "First Name should not be empty"
     }
     else {
-        error.fname = ""
+        error.firstname = ""
     }
 
-    if (values.lname === "") {
-        error.lname = "Last Name should not be empty"
+    if (values.lastname === "") {
+        error.lastname = "Last Name should not be empty"
     }
     else {
-        error.lname = ""
+        error.lastname = ""
     }
 
     if (values.email === "") {

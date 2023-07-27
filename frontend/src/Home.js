@@ -1,8 +1,8 @@
 import React from 'react';
-import './App.css';
+import './Home.css';
 import Class from './components/Class';
 
-class App extends React.Component {
+class Home extends React.Component {
   state = {
     departments: [
       {
@@ -337,4 +337,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default Home;
