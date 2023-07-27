@@ -45,8 +45,8 @@ func loadDatabase() {
 func serveApplication() {
 	router := gin.Default()
 
-	router.LoadHTMLGlob("../frontend/build/index.html")  // point to your index.html
-	router.Static("/static", "../frontend/build/static") // point to the static directory
+	router.LoadHTMLGlob("../retro-log/build/index.html")  // point to your index.html
+	router.Static("/static", "../retro-log/build/static") // point to the static directory
 
 	// Setup route
 	router.NoRoute(func(c *gin.Context) {
