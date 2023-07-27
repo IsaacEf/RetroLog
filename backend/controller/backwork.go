@@ -9,6 +9,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+	log "github.com/sirupsen/logrus"
 
 	"net/http"
 )
@@ -19,12 +20,14 @@ func AddBackwork(context *gin.Context) {
 	err := context.ShouldBindQuery(&input)
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		log.Error(err)
 		return
 	}
 
 	user, err := helper.CurrentUser(context)
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		log.Error(err)
 		return
 	}
 
@@ -42,6 +45,7 @@ func AddBackwork(context *gin.Context) {
 	formFile, err := context.FormFile("file")
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		log.Error(err)
 		return
 	}
 
@@ -52,6 +56,7 @@ func AddBackwork(context *gin.Context) {
 
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		log.Error(err)
 		return
 	}
 
@@ -64,6 +69,7 @@ func GetAllBackworks(context *gin.Context) {
 
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		log.Error(err)
 		return
 	}
 
@@ -86,6 +92,7 @@ func GetAllBackworks(context *gin.Context) {
 	// Execute the query and return the results.
 	if err := db.Find(&backworks).Error; err != nil {
 		context.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		log.Error(err)
 		return
 	}
 
@@ -98,12 +105,14 @@ func GetBackwork(context *gin.Context) {
 
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		log.Error(err)
 		return
 	}
 
 	var backwork model.Backwork
 	if err := database.Database.Where("ID = ?", input.ID).Find(&backwork).Error; err != nil {
 		context.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		log.Error(err)
 		return
 	}
 
