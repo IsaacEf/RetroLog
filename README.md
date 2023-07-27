@@ -18,6 +18,6 @@ Check the version and ensure it matches
 
 Be sure to have the most recent version of Golang installed.
 
-To start the webserver simply run 
+To start the webserver navigate to the `RetroLog/backend/` folder and run 
 
-`$ go run backend/main.go`
+`$ go run main.go`
