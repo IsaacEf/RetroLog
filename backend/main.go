@@ -9,10 +9,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	log "github.com/sirupsen/logrus"
 
 	"fmt"
-	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
@@ -31,6 +32,15 @@ func loadEnv() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
+
+	// setup logrus
+	logLevel, err := log.ParseLevel(os.Getenv("LOG_LEVEL"))
+	if err != nil {
+		logLevel = log.InfoLevel
+	}
+
+	log.SetLevel(logLevel)
+	log.SetFormatter(&log.TextFormatter{})
 }
 
 func loadDatabase() {
@@ -43,7 +53,9 @@ func loadDatabase() {
 
 // run server
 func serveApplication() {
+
 	router := gin.Default()
+	router.Use(middleware.LoggingMiddleware())
 
 	router.LoadHTMLGlob("../frontend/build/index.html")  // point to your index.html
 	router.Static("/static", "../frontend/build/static") // point to the static directory

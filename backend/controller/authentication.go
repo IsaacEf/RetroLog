@@ -1,12 +1,12 @@
 package controller
 
 import (
-	// "backend/database"
 	"backend/helper"
 	"backend/model"
 
 	"github.com/badoux/checkmail"
 	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
 
 	"net/http"
 )
@@ -18,12 +18,14 @@ func RegisterValidateInput(context *gin.Context) (model.User, error) {
 	// validates JSON request
 	if err := context.ShouldBindJSON(&input); err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": "failed to parse json"})
+		log.Error(err)
 		return model.User{}, err
 	}
 
 	// validate email
 	if err := checkmail.ValidateFormat(input.Email); err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": "email format invalid"})
+		log.Error(err)
 		return model.User{}, err
 	}
 
@@ -44,6 +46,7 @@ func Register(context *gin.Context) {
 
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		log.Error(err)
 		return
 	}
 
@@ -52,6 +55,7 @@ func Register(context *gin.Context) {
 
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		log.Error(err)
 		return
 	}
 
@@ -66,6 +70,7 @@ func Login(context *gin.Context) {
 	if err := context.ShouldBindJSON(&input); err != nil {
 		// return error if invalid
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		log.Error(err)
 		return
 	}
 
@@ -75,6 +80,7 @@ func Login(context *gin.Context) {
 	if err != nil {
 		// error if they don't exist
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		log.Error(err)
 		return
 	}
 
@@ -84,12 +90,14 @@ func Login(context *gin.Context) {
 	if err != nil {
 		// error if its not
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		log.Error(err)
 		return
 	}
 
 	jwt, err := helper.GenerateJWT(user)
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		log.Error(err)
 		return
 	}
 
