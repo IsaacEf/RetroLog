@@ -12,36 +12,39 @@ const setAuthToken = token => {
   }
 }
 
-const ProfessorDropdown = () => {
-  const [professorsData, setProfessorsData] = useState([]);
 
-  useEffect(() => {
-    // Fetch professors data from the database/API
+
+class Home extends React.Component {
+
+
+
+  constructor() {
+    super();     
+    this.state = { 
+      professorsData: [],
+      jwtToken: localStorage.getItem('jwtToken'),
+      dept: 'CSCI'
+    };
+  }
+
+  componentDidMount() {
+    setAuthToken(this.state.jwtToken);
+    this.fetchProfessorsData();
+  }
+
+  fetchProfessorsData = () => {
     axios.get('http://localhost:8000/api/professors', {
-      dept: "CSCI"
+      dept: this.state.dept
     }) // Replace '/api/professors' with your API endpoint
       .then((response) => {
-        setProfessorsData(response.data.professors);
+        this.setState({professorsData: response.data.professors});
       })
       .catch((error) => {
         console.error('Error fetching professors data:', error);
       });
-  }, []);
-}
+  }
 
-class Home extends React.Component {
-    constructor() {
-    super();
-    this.state = { 
-        jwtToken: localStorage.getItem('jwtToken')
-      };
-    }
-  
-    componentDidMount() {
-      setAuthToken(this.state.jwtToken);
-
-    }
-    
+  //This data can now be accessed anywhere inside Home class component by referring to this.state.professorsData.
 
   state = {
    
@@ -59,8 +62,8 @@ class Home extends React.Component {
                 id: 2,
                 name: 'CSCI-1100 Computer Science 1 (4 Credits)',
                 professors: [
-
-                  ],
+                    this.state.professorsData
+                ],
 
                 backwork: [
                   {type: 'Lab', name: 'Lab 1'},
@@ -308,10 +311,15 @@ class Home extends React.Component {
           <label>
             Select Professor:
             <select value={selectedProfessor} onChange={this.handleProfessorChange}>
-              {classData.professors.map(professor => (
-                <option key = {professor.ID} value = {professor.name}></option>
-              ))}
-            </select>
+            {this.state.professorsData.length > 0 ? (
+              this.state.professorsData.map((professor, index) => (
+                <option key={index} value={professor.name}>{professor.name}</option>
+              ))
+            ) : (
+              <option>Loading...</option>
+            )}
+          </select>
+
           </label>
 
           <ul>
