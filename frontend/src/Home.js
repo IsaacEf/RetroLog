@@ -1,9 +1,50 @@
 import React from 'react';
 import './Home.css';
-import Class from './components/Class';
+import axios from 'axios'
+
+const setAuthToken = token => {
+  if (token) {
+    // Apply authorization token to every request if logged in
+    axios.defaults.headers.common['Authorization'] = token;
+  } else {
+    // Delete auth header
+    delete axios.defaults.headers.common['Authorization'];
+  }
+}
+
+const ProfessorDropdown = () => {
+  const [professorsData, setProfessorsData] = useState([]);
+
+  useEffect(() => {
+    // Fetch professors data from the database/API
+    axios.get('http://localhost:8000/api/professors', {
+      dept: "CSCI"
+    }) // Replace '/api/professors' with your API endpoint
+      .then((response) => {
+        setProfessorsData(response.data.professors);
+      })
+      .catch((error) => {
+        console.error('Error fetching professors data:', error);
+      });
+  }, []);
+}
 
 class Home extends React.Component {
+    constructor() {
+    super();
+    this.state = { 
+        jwtToken: localStorage.getItem('jwtToken')
+      };
+    }
+  
+    componentDidMount() {
+      setAuthToken(this.state.jwtToken);
+
+    }
+    
+
   state = {
+   
     departments: [
       {
         id: 1,
@@ -17,7 +58,10 @@ class Home extends React.Component {
               {
                 id: 2,
                 name: 'CSCI-1100 Computer Science 1 (4 Credits)',
-                professors: ["Professor A", "Professor B"], 
+                professors: [
+
+                  ],
+
                 backwork: [
                   {type: 'Lab', name: 'Lab 1'},
                   {type: 'Lab', name: 'Lab 2'},
@@ -265,7 +309,7 @@ class Home extends React.Component {
             Select Professor:
             <select value={selectedProfessor} onChange={this.handleProfessorChange}>
               {classData.professors.map(professor => (
-                <option value={professor}>{professor}</option>
+                <option key = {professor.ID} value = {professor.name}></option>
               ))}
             </select>
           </label>
