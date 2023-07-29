@@ -10,11 +10,11 @@ The server expects data, and will return data, in the JSON format. This means th
 POST  - /auth/register
 POST  - /auth/login
 
-GET   - /api/professors
-GET   - /api/courses
-GET   - /api/course
-GET   - /api/backworks
-GET   - /api/backwork
+POST   - /api/professors
+POST   - /api/courses
+POST   - /api/course
+POST   - /api/backworks
+POST   - /api/backwork
 POST  - /api/upload
 ```
 
@@ -78,7 +78,7 @@ If the user successfully logs in, the server will send back a JSON Web Token (JW
 
 
 
-## `GET - /api/professors`
+## `POST - /api/professors`
 
 ####  Authentication 
 
@@ -154,7 +154,7 @@ The `ID` field is essentially a key for that specific `Professor` object in the 
 
 
 
-## `GET - /api/courses`
+## `POST - /api/courses`
 
 ####  Authentication 
 
@@ -228,7 +228,7 @@ This endroute will grab every Course from our database in a specific department.
 
 The `ID` field is a key for that specific `Course` object in the database. 
 
-## `GET - /api/course`
+## `POST - /api/course`
 
 ####  Authentication 
 
@@ -271,7 +271,7 @@ This endroute will grab the specified course from our database and all the data 
 This response will return an array of all the `Backwork` objects associated with a particular course (if they exist). 
 
 
-## `GET - /api/backworks`
+## `POST - /api/backworks`
 
 ####  Authentication 
 
@@ -384,7 +384,7 @@ The fields here are important
 - `verified` - the verification status of this backwork
 - `userId` - the Database ID of the user who uploaded it
 
-## `GET - /api/backwork`
+## `POST - /api/backwork`
 
 ####  Authentication 
 
