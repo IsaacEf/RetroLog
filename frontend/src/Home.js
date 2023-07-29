@@ -1,5 +1,6 @@
 import React from 'react';
 import './Home.css';
+import Upload from './Upload'
 import Class from './components/Class';
 
 class Home extends React.Component {
@@ -332,6 +333,7 @@ class Home extends React.Component {
             ))}
           </ul>
         </nav>
+        <Upload />
       </div>
     );
   }

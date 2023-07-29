@@ -1,4 +1,4 @@
-function Validation(values) {
+function Validation(values, response) {
     let error = {}
     //without space character accept all 
     const email_pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/ 
@@ -10,7 +10,7 @@ function Validation(values) {
         error.email = "Name should not be empty"
     }
     else if (!email_pattern.test(values.email)) {
-        error.email = "Email Didn't match"
+       error.email = "Email is invalid"
     }
     else {
         error.email = ""
@@ -21,6 +21,9 @@ function Validation(values) {
     }
     else if (!password_pattern.test(values.password)) {
         error.password = "Password didn't match"
+    }
+    else if (response != 200) {
+        error.password = "Email or password is incorrect"
     }
     else {
         error.password = ""
