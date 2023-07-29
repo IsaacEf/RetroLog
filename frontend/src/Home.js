@@ -229,6 +229,33 @@ class Home extends React.Component {
 
   handleClassClick = (id) => {
     this.setState({ currentClass: id });
+    const classData = this.state.departments
+    .flatMap(dept => dept.majors)
+    .flatMap(major => major.classes)
+    .find(cls => cls.id === id);
+
+  // Set the Authorization header with the JWT token
+    const token = localStorage.getItem('jwtToken');
+    const headers = {
+      Authorization: `Bearer ${token}`
+    };
+
+    // Make the Axios GET request with the classData and headers
+    axios.get("http://localhost:8000/api/backworks", {
+      courseid: '1',
+      professorid: '',
+      verified: ''
+    }, {
+      headers
+    })
+    .then((response) => {
+      // Handle the response
+      console.log(response.data); // The response will contain the downloaded Backwork objects
+    })
+    .catch((err) => {
+      // Handle the error
+      console.error(err);
+    });
   };
 
   handleBackClick = () => {

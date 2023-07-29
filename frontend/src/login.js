@@ -25,7 +25,6 @@ export default function Login() {
       })
       .then(response => {
         localStorage.setItem('jwtToken', response.data.jwt);
-        console.log("Token:" + response.data.jwt)
         navigate('/Home')
       })
       .catch(err => {
