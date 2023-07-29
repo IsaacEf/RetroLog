@@ -4,7 +4,7 @@ import (
 	"backend/controller"
 	"backend/database"
 	"backend/middleware"
-	"backend/model"
+	// "backend/model"
 	"backend/storage"
 
 	"github.com/gin-gonic/gin"
@@ -45,10 +45,10 @@ func loadEnv() {
 
 func loadDatabase() {
 	database.Connect()
-	database.Database.AutoMigrate(&model.User{})
-	database.Database.AutoMigrate(&model.Professor{})
-	database.Database.AutoMigrate(&model.Course{})
-	database.Database.AutoMigrate(&model.Backwork{})
+	// database.Database.AutoMigrate(&model.User{})
+	// database.Database.AutoMigrate(&model.Professor{})
+	// database.Database.AutoMigrate(&model.Course{})
+	// database.Database.AutoMigrate(&model.Backwork{})
 }
 
 // run server
@@ -72,11 +72,11 @@ func serveApplication() {
 	protectedRoutes := router.Group("/api")
 	protectedRoutes.Use(middleware.JWTAuthMiddleware())
 	protectedRoutes.POST("/upload", controller.AddBackwork)
-	protectedRoutes.GET("/backworks", controller.GetAllBackworks)
-	protectedRoutes.GET("/backwork", controller.GetBackwork)
-	protectedRoutes.GET("/professors", controller.GetAllProfessors)
-	protectedRoutes.GET("/courses", controller.GetAllCourses)
-	protectedRoutes.GET("/course", controller.GetCourse)
+	protectedRoutes.POST("/backworks", controller.GetAllBackworks)
+	protectedRoutes.POST("/backwork", controller.GetBackwork)
+	protectedRoutes.POST("/professors", controller.GetAllProfessors)
+	protectedRoutes.POST("/courses", controller.GetAllCourses)
+	protectedRoutes.POST("/course", controller.GetCourse)
 
 	router.Run(":8000")
 	fmt.Println("Server running on port 8000")
