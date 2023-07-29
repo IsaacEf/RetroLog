@@ -1,4 +1,4 @@
-function Validation(values) {
+function Validation(values,response) {
     let error = {}
 
     //without space character accept all 
@@ -8,6 +8,7 @@ function Validation(values) {
 
     if (values.firstname === "") {
         error.firstname = "First Name should not be empty"
+        error.err = true
     }
     else {
         error.firstname = ""
@@ -15,26 +16,43 @@ function Validation(values) {
 
     if (values.lastname === "") {
         error.lastname = "Last Name should not be empty"
+        error.err = true
     }
     else {
         error.lastname = ""
     }
+    
+    var index = values.email.indexOf("@")
+    var length = values.email.length
+    var domain = values.email.substring(index+1,length)
+
 
     if (values.email === "") {
         error.email = "Email should not be empty"
+        error.err = true
     }
-    else if (!email_pattern.test(values.email)) {
-        error.email = "Email didn't match"
+    else if (!email_pattern.test(values.email) || domain != "rpi.edu") {
+        error.email = "Email is invalid"
+        error.err = true
     }
+    //else if (!email_pattern.test(values.email)) {
+        //error.email = "Email is invalid"
+   // }
     else {
         error.email = ""
     }
 
     if (values.password === "") {
-        error.password = "Last Name should not be empty"
+        error.password = "Password should not be empty"
+        error.err = true
     }
     else if (!password_pattern.test(values.password)) {
         error.password = "Password didn't match"
+        error.err = true
+    }
+    else if (response != 200) {
+        error.password = "Sign-up failed"
+        error.err = true
     }
     else {
         error.password = ""

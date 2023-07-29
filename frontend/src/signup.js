@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Validation from './SignupValidation'
+import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 
@@ -8,29 +9,45 @@ export default function SignUp() {
       firstname: '',
       lastname: '',
       email: '',
-      password: ''
+      password: '',
+      err: false
     })
+    const [visible, setVisible] = useState();
     const navigate = useNavigate();
     const [errors, setErrors] = useState({})
     const handleInput = (event) => {
       setValues({...values,[event.target.name]: event.target.value})
     }
+    var response = 200
     const handleSubmit = (event) => {
       event.preventDefault();
-      setErrors(Validation(values));
-      axios.post('http://localhost:8000/auth/register', {
-        firstname:values.firstname,
-        lastname: values.lastname,
-        email: values.email,
-        password: values.password
-      })
-      .then(response => {
-        navigate('/sign-in')
-      })
-      .catch(err => console.log(err))
-    }
+      const validationErrors = Validation(values, response);
+    
+      // Check if there are any errors returned by the Validation function
+      if (!validationErrors.err) {
+        axios.post('http://localhost:8000/auth/register', {
+          firstname: values.firstname,
+          lastname: values.lastname,
+          email: values.email,
+          password: values.password
+        })
+        .then(response => {
+          navigate('/sign-in')
+        })
+        .catch(err => {
+          if (err.response) {
+            // Assuming 'response' should be set to 400 in case of errors
+            response = 400;
+            setErrors(Validation(values, response));
+          }
+        });
+      } else {
+        // Update the errors state with the validation errors
+        setErrors(validationErrors);
+      }
+    };
     return (
-      <form action = "/sign-in" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <h3>Sign Up</h3>
 
         <div className="mb-3">
@@ -68,11 +85,14 @@ export default function SignUp() {
         <div className="mb-3">
           <label>Password</label>
           <input
-            type="password"
+            type= {visible ? "text" : "password"}
             className="form-control"
             placeholder="Enter password"
             name = 'password'
             onChange={handleInput}/>
+            <div className = "p-2" onClick={() => setVisible(!visible)}>
+              {visible ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+            </div>
             {errors.password && <span className='text-danger'>{errors.password}</span>}
         </div>
 
@@ -87,3 +107,4 @@ export default function SignUp() {
       </form>
     )
   }
+export {SignUp}
