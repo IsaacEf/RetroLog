@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const BackworkList = () => {
   const [backworks, setBackworks] = useState([]);
-  const jwt = localStorage.getItem('jwtToken');  // Replace with the actual JWT.
+  const jwt = localStorage.getItem('jwtToken');
   const headers = {
     Authorization: `Bearer ${jwt}`,
     'Content-Type': 'application/json',
@@ -15,12 +15,10 @@ const BackworkList = () => {
         const response = await axios({
           method: 'post',
           url: 'http://localhost:8000/api/backworks',
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-            'Content-Type': 'application/json',
-          },
+          headers,
           data: {
-            courseid: 1,  // Use actual course ID here.
+            courseid: 1,
+            professorid: null,
             verified: false,
           },
         });
@@ -34,14 +32,27 @@ const BackworkList = () => {
     fetchData();
   }, []);
 
+  const handleDownload = async (url, filename) => {
+    try {
+      const response = await axios.get(url, { responseType: 'blob' });
+      const blob = new Blob([response.data], { type: 'application/octet-stream' });
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = filename;
+      link.click();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <ul>
       {backworks.map((backwork) => (
         <li key={backwork.uuid}>
           <h2>{backwork.fileName}</h2>
-          <a href={backwork.url} target="_blank" rel="noopener noreferrer">
+          <button onClick={() => handleDownload(backwork.url, backwork.fileName)}>
             Download file
-          </a>
+          </button>
           <p>Course ID: {backwork.courseId}</p>
           <p>Professor ID: {backwork.professorId}</p>
           <p>Verified: {backwork.verified ? 'Yes' : 'No'}</p>
