@@ -1,7 +1,9 @@
 import React from 'react';
 import './Home.css';
 import Upload from './Upload'
+import axios from 'axios';
 import Class from './components/Class';
+
 
 class Home extends React.Component {
   state = {
@@ -206,6 +208,7 @@ class Home extends React.Component {
     ],
     currentDepartment: null,
     currentMajor: null,
+    backworkData: null,
     currentClass: null,
     search: '',
     selectedProfessor: '',
@@ -227,8 +230,43 @@ class Home extends React.Component {
     this.setState({ currentMajor: id, currentClass: null });
   };
 
-  handleClassClick = (id) => {
+  handleClassClick = async (id) => {
     this.setState({ currentClass: id });
+  
+    const jwt = localStorage.getItem('jwtToken');
+    const headers = {
+      Authorization: `Bearer ${jwt}`,
+      'Content-Type': 'application/json',
+    };
+
+    try {
+      const response = await axios.post('http://localhost:8000/api/backworks', {
+        courseid: 1,
+        professorid: null,
+        verified: false,
+      }, { headers });
+  
+      const backworkData = response.data.backworks;
+      console.log(response.data.backworks)
+      this.setState({ backworkData }); // Set the retrieved data in the state
+      console.log(this.state.backworkData)
+  
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  handleDownload = async (url, filename) => {
+    try {
+      const response = await axios.get(url, { responseType: 'blob' });
+      const blob = new Blob([response.data], { type: 'application/octet-stream' });
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = filename;
+      link.click();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   handleBackClick = () => {
@@ -270,12 +308,20 @@ class Home extends React.Component {
               ))}
             </select>
           </label>
-
+          {this.state.backworkData && (
           <ul>
-            {filteredBackwork.map((bw, index) => (
-              <li key={index}>{bw.type}: {bw.name}</li>
+            {this.state.backworkData.map((backwork) => (
+              <li key={backwork.uuid}>
+                <h2>{backwork.fileName}</h2>
+                <button onClick={() => this.handleDownload(backwork.url, backwork.fileName)}>Download File</button>
+                <p>Course ID: {backwork.courseId}</p>
+                <p>Professor ID: {backwork.professorId}</p>
+                <p>Verified: {backwork.verified ? 'Yes' : 'No'}</p>
+                <p>User ID: {backwork.userId}</p>
+              </li>
             ))}
           </ul>
+          )}
         </div>
       );
     }
