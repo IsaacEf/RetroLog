@@ -1,97 +1,145 @@
 /* Styles for the Upload button */
 button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Styles for the popup form */
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    max-width: 400px;
-    width: 100%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
-  
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  label {
-    margin-bottom: 5px;
-  }
-  
-  input[type="text"],
-  input[type="professor"],
-  input[type="file"] {
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  input[type="file"] {
-    cursor: pointer;
-  }
-  
-  button[type="submit"] {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  button[type="submit"]:hover {
-    background-color: #0056b3;
-  }
-  
-  p {
-    margin-top: 10px;
-  }
-  
-  /* Optional: Styles for the file delete button */
-  button[type="button"] {
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  button[type="button"]:hover {
-    background-color: #c82333;
-  }
-  
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  padding-top: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Hover effect for the Upload button */
+button:hover {
+  background-color: #0056b3;
+}
+.space{
+  padding-top: 5000px;
+}
+
+
+
+/* Styling for the content container of the popup form */
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 400px;
+  max-height: 50px;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Heading 2 styling for the popup form */
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Styling for the form inside the popup */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Styling for labels in the form */
+label {
+  margin-bottom: 5px;
+}
+
+/* Styling for text input fields and professor input */
+input[type="text"],
+input[type="professor"],
+input[type="file"] {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+/* Styling for the file input field */
+input[type="file"] {
+  cursor: pointer;
+}
+
+/* Styling for the submit button in the form */
+button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Hover effect for the submit button */
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Styling for paragraphs inside the popup form */
+p {
+  margin-top: 10px;
+}
+
+/* Optional: Styles for the file delete button */
+/* Styling for the file delete button (if present in the form) */
+button[type="button"] {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Hover effect for the file delete button (if present in the form) */
+button[type="button"]:hover {
+  background-color: #c82333;
+}
+
+
+/* ... (rest of the existing CSS code) */
+
+/* Styles for the popup form */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Ensures the overlay appears above other content */
+}
+
+/* Styling for the content container of the popup form */
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 90%; /* Adjust to fit the content */
+  max-height: 90%; /* Adjust to fit the content */
+  width: auto; /* Allows the content to determine the width */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto; /* Allows scrolling if content overflows */
+}
+
+/* Grey box styles */
+.grey-box {
+  background-color: grey;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}

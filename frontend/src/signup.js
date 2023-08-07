@@ -47,62 +47,81 @@ export default function SignUp() {
       }
     };
     return (
+      /* might be bad that each field is under the same div classname you decide whats good */
       <form onSubmit={handleSubmit}>
+        {/* Sign Up heading */}
         <h3>Sign Up</h3>
 
+        {/* First Name Input */}
         <div className="mb-3">
           <label>First name</label>
           <input
             type="text"
             className="form-control"
             placeholder="First name"
-            name = 'firstname'
-            onChange={handleInput}/>
-            {errors.firstname && <span className='text-danger'>{errors.firstname}</span>}
+            name="firstname"
+            onChange={handleInput}
+          />
+          {/* Display an error message if the firstname validation fails */}
+          {errors.firstname && <span className='text-danger'>{errors.firstname}</span>}
         </div>
 
+        {/* Last Name Input */}
         <div className="mb-3">
           <label>Last name</label>
-          <input type="text" 
-          className="form-control" 
-          placeholder="Last name"
-          name = 'lastname'
-          onChange={handleInput} />
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Last name"
+            name="lastname"
+            onChange={handleInput}
+          />
+          {/* Display an error message if the lastname validation fails */}
           {errors.lastname && <span className='text-danger'>{errors.lastname}</span>}
         </div>
 
+        {/* Email Address Input */}
         <div className="mb-3">
           <label>Email address</label>
           <input
             type="email"
             className="form-control"
             placeholder="Enter email"
-            name = 'email'
-            onChange={handleInput} />
-            {errors.email && <span className='text-danger'>{errors.email}</span>}
+            name="email"
+            onChange={handleInput}
+          />
+          {/* Display an error message if the email validation fails */}
+          {errors.email && <span className='text-danger'>{errors.email}</span>}
         </div>
 
+        {/* Password Input */}
         <div className="mb-3">
           <label>Password</label>
           <input
-            type= {visible ? "text" : "password"}
+            type={visible ? "text" : "password"}
             className="form-control"
             placeholder="Enter password"
-            name = 'password'
-            onChange={handleInput}/>
-            <div className = "p-2" onClick={() => setVisible(!visible)}>
-              {visible ? <EyeOutlined /> : <EyeInvisibleOutlined />}
-            </div>
-            {errors.password && <span className='text-danger'>{errors.password}</span>}
+            name="password"
+            onChange={handleInput}
+          />
+          {/* Display an error message if the password validation fails */}
+          {errors.password && <span className='text-danger'>{errors.password}</span>}
+          {/* Show an eye icon to toggle password visibility */}
+          <div className="p-2" onClick={() => setVisible(!visible)}>
+            {visible ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+          </div>
         </div>
 
+        {/* Sign Up button */}
         <div className="d-grid">
           <button type="submit" className="btn btn-primary">
             Sign Up
           </button>
         </div>
+
+        {/* Link to the Sign In page for users who are already registered */}
         <p className="forgot-password text-right">
-            Already registered <a href="/sign-in">sign in?</a>
+          Already registered <a href="/sign-in">sign in?</a>
         </p>
       </form>
     )

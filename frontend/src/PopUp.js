@@ -38,55 +38,44 @@ const PopUp = (props) => {
 
     return (
         <>
-            {props.somepop === "open" ?
+          {/* Render the upload form if props.somepop is "open" */}
+          {props.somepop === "open" ? (
             <Container>
-                <form onSubmit={handleSubmit}>
-                    <h1>Upload Form</h1>
-                    <div className="ui divider"></div>
-                        <div className="ui form">
-                        <div className="field">
-                            <label>Professor</label>
-                            <input
-                            type="text"
-                            name="professorid"
-                            placeholder="Professor"
-                            onChange={handleInput}
-                            />
-                        </div>
-                        <div className="field">
-                            <label>Filename</label>
-                            <input
-                            type="text"
-                            name="filename"
-                            placeholder="Filename"
-                            onChange={handleInput}
-                            />
-                        </div>
-                        <button className="fluid ui button blue">Submit</button>
-                    </div>
-                </form>
+              <form onSubmit={handleSubmit}>
+                <h1>Upload Form</h1>
+                <div className="ui divider"></div>
+                <div className="ui form">
+                  {/* Professor input field */}
+                  <div className="field">
+                    <label>Professor</label>
+                    <input
+                      type="text"
+                      name="professorid"
+                      placeholder="Professor"
+                      onChange={handleInput}
+                    />
+                  </div>
+                  {/* Filename input field */}
+                  <div className="field">
+                    <label>Filename</label>
+                    <input
+                      type="text"
+                      name="filename"
+                      placeholder="Filename"
+                      onChange={handleInput}
+                    />
+                  </div>
+                  {/* Submit button */}
+                  <button className="fluid ui button blue">Submit</button>
+                </div>
+              </form>
             </Container>
-            :
-            ""}
-
+          ) : (
+            // If props.somepop is not "open", render nothing (empty fragment)
+            ""
+          )}
         </>
-    )
+    );
 }
-
-const Container = styled.div`
-height: 400px;
-width: 30%;
-left: 50%;
-top: 50%;
-border-radius: 10px;
-box-shadow: rgba(100,100,111,0.2) 0px;
--webkit-transform: translate(-50%,-50%);
-transform: translate(-50%,-50%);
-background-color: #fff;
-position: absolute;
-display: flex;
-align-items: center;
-justify-content: center;
-`;
 
 export default PopUp

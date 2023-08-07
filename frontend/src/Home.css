@@ -1,37 +1,90 @@
+/* Global Variables */
+:root {
+  --header-bg-color: #282c34;
+  --text-color-white: white;
+  --box-shadow-light: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --box-shadow-dark: 0 2px 12px rgba(0, 0, 0, 0.2);
+  --transition-effect: box-shadow 0.3s ease;
+}
+
+.uploaded-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* Align items to the left */
+}
+
+.uploaded-item {
+  flex: 1 0 calc(33.333% - 20px); /* Three items per row, with some space between */
+  margin: 10px;
+  padding: 10px;
+  min-width: 200px; /* Minimum width to prevent squishing */
+  /* Remove border and box-shadow */
+  background-color: transparent; /* Remove white background */
+  box-shadow: none; /* Remove shadow */
+}
+
+
+.top{
+  margin-bottom: 20px;
+}
+
+.backwork-page {
+  margin-top: 10px; /* Adjust this value based on the height of your navbar */
+
+}
+
+/* App Container */
 .App {
   text-align: center;
 }
 
+/* Header Styling */
 .App-header {
-  background-color: #282c34;
+  background-color: var(--header-bg-color);
   padding: 20px;
-  color: white;
+  color: var(--text-color-white);
 }
 
+/* Heading Styling */
 h1 {
   font-size: 2.5em;
 }
 
+/* Paragraph Styling */
 p {
   font-size: 1.2em;
 }
 
+/* List Styling */
 ul {
   list-style: none;
   padding: 0;
 }
 
+input.search_box {
+  border: 1px solid black !important;
+  margin-left: 10px; 
+}
+
+ 
+label.box select {
+  margin-left: 15px; 
+}
+
+
+
+/* Individual Class Item Styling */
 li.class-item {
   margin: 10px;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--box-shadow-light);
   background-color: #fff;
-  transition: box-shadow 0.3s ease;
+  transition: var(--transition-effect);
 }
 
 li.class-item:hover {
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--box-shadow-dark);
 }
 
 li.class-item > h2 {
@@ -42,6 +95,12 @@ li.class-item > p {
   margin: 0;
 }
 
+/* Button Styling */
 button.goBack {
   margin-bottom: 10px;
+}
+
+/* Media Queries for Responsiveness (if needed) */
+@media (max-width: 768px) {
+  /* Add responsive styles here */
 }
