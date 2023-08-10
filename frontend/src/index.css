@@ -1,102 +1,122 @@
+/* The other pages are probably messed up because of the css here */
+
+
+
 @import url("https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800");
 
+/* Global styling */
 * {
   box-sizing: border-box;
 }
+
+
+.uploaded-items {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.uploaded-item {
+  flex: 1 0 calc(33.333% - 20px); /* Three items per row */
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Body styles */
 body {
-  background: #1c8ef9 !important;
-  min-height: 100vh;
-  display: flex;
-  font-weight: 400;
-  font-family: "Fira Sans", sans-serif;
+  background: #1c8ef9 !important; /* Set the background color */
+  min-height: 100vh; /* Set the minimum height of the body to the full viewport height */
+  display: flex; 
+  font-weight: 400; /* Set default font weight */
+  font-family: "Fira Sans", sans-serif; 
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-label,
-span {
-  font-weight: 500;
-  font-family: "Fira Sans", sans-serif;
+/* Heading and label styles */
+h1, h2, h3, h4, h5, h6, label, span {
+  font-weight: 500; /* Set font weight for headings, labels, and spans */
+  font-family: "Fira Sans", sans-serif; 
 }
 
-body,
-html,
-.App,
-#root,
-.auth-wrapper {
-  width: 100%;
-  height: 100%;
+/* Styling for body, html, App component, root element, and auth wrapper */
+body, html, .App, #root, .auth-wrapper {
+  width: 100%; 
+  height: 100%; 
 }
 
-
-
+/* Navbar styles */
 .navbar-light {
-  background-color: #ffffff;
-  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+  background-color: #ffffff; 
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2); /* Apply a box shadow to the navbar */
 }
 
+/* Styling for the authentication wrapper */
 .auth-wrapper {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  text-align: left;
+  display: flex; 
+  justify-content: center; /* Center content horizontally */
+  flex-direction: column; /* Arrange content in a column */
+  text-align: left; 
 }
 
+
+/* Styling for the inner authentication container */
 .auth-inner {
-  width: 450px;
-  margin: auto;
-  background: #ffffff;
-  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
-  padding: 40px 55px 45px 55px;
-  border-radius: 15px;
-  transition: all 0.3s;
+  width: 450px; 
+  margin: auto; /* Center the inner container horizontally */
+  background: #ffffff; 
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2); 
+  padding: 40px 55px 45px 55px; 
+  border-radius: 15px; 
+  transition: all 0.3s; /* Add a smooth transition effect */
 }
 
+/* Styling for form controls when focused */
 .auth-wrapper .form-control:focus {
-  border-color: #167bff;
-  box-shadow: none;
+  border-color: #167bff; /* Change the border color when the form control is focused */
+  box-shadow: none; /* Remove the box shadow when the form control is focused */
 }
 
+/* Styling for authentication form headings */
 .auth-wrapper h3 {
-  text-align: center;
-  margin: 0;
-  line-height: 1;
-  padding-bottom: 20px;
+  text-align: center; 
+  margin: 0; 
+  line-height: 1; 
+  padding-bottom: 20px; 
 }
 
+/* Styling for custom control labels */
 .custom-control-label {
-  font-weight: 400;
-  padding-left: 5px
+  font-weight: 400; 
+  padding-left: 5px; 
 }
 
-
-
+/* Styling for the "Forgot password" link */
 .forgot-password,
 .forgot-password a {
   padding-top: 22px;
   text-align: right;
-  font-size: 13px;
-  margin: 0;
+  font-size: 13px; 
+  margin: 0; /* no margin */
   color: #7f7d7d;
 }
 
-.forgot-password a {
-  color: #167bff;
+/* Styling for the "Forgot password" link when hovered */
+.forgot-password a:hover {
+  color: #167bff; 
 }
 
+/* Styling for the "Sign up" link */
 .sign-up,
 .sign-up a {
-  float: left;
-  font-size: 13px;
+  float: left; 
+  font-size: 13px; 
   padding-top: 11px;
   color: #7f7d7d;
-  margin: 0;
+  margin: 0; 
 }
 
-.sign-up a {
-  color: #167bff;
+/* Styling for the "Sign up" link when hovered */
+.sign-up a:hover {
+  color: #167bff; 
 }

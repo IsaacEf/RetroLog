@@ -21,7 +21,7 @@ function Validation(values,response) {
     else {
         error.lastname = ""
     }
-    
+    /* checking for only rpi domains */
     var index = values.email.indexOf("@")
     var length = values.email.length
     var domain = values.email.substring(index+1,length)
@@ -35,9 +35,6 @@ function Validation(values,response) {
         error.email = "Email is invalid"
         error.err = true
     }
-    //else if (!email_pattern.test(values.email)) {
-        //error.email = "Email is invalid"
-   // }
     else {
         error.email = ""
     }

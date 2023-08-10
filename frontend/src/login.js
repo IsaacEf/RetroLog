@@ -39,32 +39,39 @@ export default function Login() {
     return (
       <form onSubmit={handleSubmit}>
         <h3>Sign In</h3>
-        
+        {/* decided to make the div names for each field unique for login, forgot why */}
+
+        {/* Email input field */}
         <div className="mb-1">
           <label>Email address</label>
           <input
             type="email"
             className="form-control"
             placeholder="Enter email"
-            name = 'email'
-            onChange={handleInput}/>
-            {errors.email && <span className='text-danger'>{errors.email}</span>}
+            name="email"
+            onChange={handleInput}
+          />
+          {errors.email && <span className='text-danger'>{errors.email}</span>}
         </div>
-
+    
+        {/* Password input field */}
         <div className="mb-2">
           <label>Password</label>
           <input
-            type= {visible ? "text" : "password"}
+            type={visible ? "text" : "password"}
             className="form-control"
             placeholder="Enter password"
-            name = 'password'
-            onChange={handleInput}/>
-            <div className = "p-2" onClick={() => setVisible(!visible)}>
-              {visible ? <EyeOutlined /> : <EyeInvisibleOutlined />}
-            </div>
-            {errors.password && <span className='text-danger'>{errors.password}</span>}
+            name="password"
+            onChange={handleInput}
+          />
+          {/* Icon to toggle password visibility */}
+          <div className="p-2" onClick={() => setVisible(!visible)}>
+            {visible ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+          </div>
+          {errors.password && <span className='text-danger'>{errors.password}</span>}
         </div>
-
+    
+        {/* Remember me checkbox */}
         <div className="mb-3">
           <div className="custom-control custom-checkbox">
             <input
@@ -77,22 +84,24 @@ export default function Login() {
             </label>
           </div>
         </div>
-
-
+    
+        {/* Login button */}
         <div className="d-grid">
           <button type="submit" className="btn btn-primary">
             Login
           </button>
         </div>
-
+    
+        {/* Sign up link */}
         <p className="sign-up text-left">
-            <a href="/sign-up">Register/Signup</a>
+          <a href="/sign-up">Register/Signup</a>
         </p>
-
+    
+        {/* Forgot password link */}
         <p className="forgot-password text-right">
           Forgot<a href=""> password?</a>
         </p>
       </form>
-    )
+    );    
   }
 export {Login}
