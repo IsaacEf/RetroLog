@@ -47,9 +47,9 @@ function App() {
               {<Route exact path="/" element={<Login />} />}
               {/* Route for the Sign-in page */}
               
-                 {/*{<Route path="/sign-in" element={<Login />} />}
-              {/* Route for the Sign-up page */}
-                 {/*<Route path="/sign-up" element={<SignUp />} /> */}
+                {<Route path="/sign-in" element={<Login />} />}
+                {/* Route for the Sign-up page */}
+                 {<Route path="/sign-up" element={<SignUp />} />}
               
        
                  <Route path="/home" element={<Home ref={homeRef} />} />
