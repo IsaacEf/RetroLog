@@ -170,15 +170,15 @@ class Home extends React.Component {
         // Other departments...
       {
         id: 10,
-        name: 'Business',
+        name: 'Management and Technology',
         majors: [
           {
             id: 11,
-            name: 'BMED - Biomedical Engineering',
+            name: 'BUSN - Business',
             classes: [
               {
                 id: 11,
-                name: 'BMED-2540 Biomechanics (4 Credits)',
+                name: 'BUSN-6012 Managing Dynamic (4 Credits)',
                 professors: ["Professor A", "Professor B"], 
                 backwork: [
                   {type: 'Lab', name: 'Lab 1'},
@@ -191,24 +191,7 @@ class Home extends React.Component {
             ],
           },
          
-          {
-            id: 12,
-            name: 'CHME - Chemical Engineering',
-            classes: [
-              {
-                id: 12,
-                name: 'CHME-2050 Introuction To Computational Chemical Engineering (3 Credits)',
-                professors: ["Professor A", "Professor B"], 
-                backwork: [
-                  {type: 'Lab', name: 'Lab 1'},
-                  {type: 'Lab', name: 'Lab 2'},
-                  {type: 'Homework', name: 'Homework 1'},
-                  {type: 'Exam', name: 'Midterm'},
-                  {type: 'Homework', name: 'Homework 2'},
-                ],
-              },
-            ],
-          },
+          
         ],
       },
     ],
