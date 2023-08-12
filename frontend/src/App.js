@@ -44,17 +44,17 @@ function App() {
             <Routes>
            
               {/* Route for the default page (Login) */}
-              {<Route exact path="/" element={<Login />} />}
+              <Route exact path="/" element={<Login />} />
               {/* Route for the Sign-in page */}
               
-                 {/*{<Route path="/sign-in" element={<Login />} />}
+              <Route path="/sign-in" element={<Login />} />
               {/* Route for the Sign-up page */}
-                 {/*<Route path="/sign-up" element={<SignUp />} /> */}
+              <Route path="/sign-up" element={<SignUp />} /> 
               
        
-                 <Route path="/home" element={<Home ref={homeRef} />} />
+              <Route path="/home" element={<Home ref={homeRef} />} /> 
 
-
+            
             </Routes>
           </div>
         </div>

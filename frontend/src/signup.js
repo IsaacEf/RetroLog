@@ -53,7 +53,7 @@ export default function SignUp() {
         <h3>Sign Up</h3>
 
         {/* First Name Input */}
-        <div className="mb-3">
+        <div className="mb-1">
           <label>First name</label>
           <input
             type="text"
@@ -67,7 +67,7 @@ export default function SignUp() {
         </div>
 
         {/* Last Name Input */}
-        <div className="mb-3">
+        <div className="mb-2">
           <label>Last name</label>
           <input
             type="text"
@@ -95,7 +95,7 @@ export default function SignUp() {
         </div>
 
         {/* Password Input */}
-        <div className="mb-3">
+        <div className="mb-4">
           <label>Password</label>
           <input
             type={visible ? "text" : "password"}

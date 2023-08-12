@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import './Home.css';
 import Upload from './Upload'
 import axios from 'axios';
-import Class from './components/Class';
+import CheckBox from './CheckBox'; 
 
 
 
@@ -24,7 +24,7 @@ class Home extends React.Component {
            
             classes: [
               {
-                id: 2,
+                id: 1,
                 name: 'CSCI-1100 Computer Science 1 (4 Credits)',
                 professors: ["Professor A", "Professor B"], 
                 backwork: [
@@ -36,7 +36,7 @@ class Home extends React.Component {
                 ],
               },
               {
-                id: 0,
+                id: 2,
                 name: 'CSCI-1200 Data Structures (4 Credits)',
                 professors: ["Professor A", "Professor B"], 
                 backwork: [
@@ -215,14 +215,13 @@ class Home extends React.Component {
     currentDepartment: null,
     currentMajor: null,
     backworkData: null,
+    professorData: null,
     currentClass: null,
+    selectedDepartment: null,
     search: '',
-    selectedProfessor: '',
+    ProfID: null,
   };
 
-  handleSearchChange = (event) => {
-    this.setState({ search: event.target.value });
-  };
 
   resetToDepartments = () => {
     this.setState({
@@ -232,19 +231,46 @@ class Home extends React.Component {
     });
   };
 
-  handleProfessorChange = (event) => {
-    this.setState({ selectedProfessor: event.target.value });
+  handleProfessorChange = async (event) => {
+    const ProfID = parseInt(event.target.value, 10);
+    
+
+    this.setState({ ProfID });
+
+    const { currentClass } = this.state;
+    
+    if (currentClass !== null) {
+      const jwt = localStorage.getItem('jwtToken');
+      const headers = {
+        Authorization: `Bearer ${jwt}`,
+        'Content-Type': 'application/json',
+      };
+      
+      try {
+        const response = await axios.post('http://localhost:8000/api/backworks', {
+          courseid: currentClass,
+          professorid: ProfID ,
+          verified: false, // You can set the verified flag accordingly
+        }, { headers });
+        
+        const backworkData = response.data.backworks;
+        this.setState({ backworkData });
+      } catch (err) {
+        console.error(err);
+      }
+    }
   };
 
   handleDepartmentClick = (id) => {
     this.setState({ currentDepartment: id, currentMajor: null, currentClass: null });
   };
 
-  handleMajorClick = (id) => {
-    this.setState({ currentMajor: id, currentClass: null });
+  handleMajorClick = (id, majorName) => {
+    const departmentID = majorName.split('-')[0].trim();
+    this.setState({ currentMajor: id, currentClass: null, selectedDepartment: departmentID });
   };
 
-  handleClassClick = async (id) => {
+  handleClassClick = async (id, verifiedOnly) => {
     this.setState({ currentClass: id });
   
     const jwt = localStorage.getItem('jwtToken');
@@ -255,15 +281,20 @@ class Home extends React.Component {
 
     try {
       const response = await axios.post('http://localhost:8000/api/backworks', {
-        courseid: 1,
+        courseid: id,
         professorid: null,
-        verified: false,
+        verified: verifiedOnly,
       }, { headers });
   
       const backworkData = response.data.backworks;
-      console.log(response.data.backworks)
       this.setState({ backworkData }); // Set the retrieved data in the state
-      console.log(this.state.backworkData)
+
+      const departmentName = this.state.selectedDepartment
+      const professorResponse = await axios.post('http://localhost:8000/api/professors', {
+      dept: departmentName,
+      }, { headers });
+      const professorData = professorResponse.data.professors;
+      this.setState({ professorData });
   
     } catch (err) {
       console.error(err);
@@ -293,9 +324,31 @@ class Home extends React.Component {
     }
   };
 
-  render() {
-    const { departments, currentDepartment, currentMajor, currentClass, search, selectedProfessor } = this.state;
+  handleSearchChange = (event) => {
+  const { currentClass, currentDepartment, currentMajor } = this.state;
+  const searchQuery = event.target.value.toLowerCase();
 
+  if (currentClass !== null) {
+    const classData = this.state.departments
+      .find((dept) => dept.id === currentDepartment)
+      .majors.find((major) => major.id === currentMajor)
+      .classes.find((cls) => cls.id === currentClass);
+
+    if (classData && classData.backwork) {
+      const filteredBackwork = classData.backwork.filter(bw =>
+        bw.name.toLowerCase().includes(searchQuery)
+      );
+
+      this.setState({ search: searchQuery, filteredBackwork });
+    }
+  } else {
+    this.setState({ search: searchQuery });
+  }
+};
+
+
+  render() {
+    const { departments, currentDepartment, currentMajor, currentClass, search, ProfID } = this.state;
     if (currentClass !== null) {
       const classData = departments
         .find((dept) => dept.id === currentDepartment)
@@ -311,19 +364,29 @@ class Home extends React.Component {
   
           <div>
           
-            <label>
-              Search Backwork:   
-              <input className = "search_box" type="text" value={search} onChange={this.handleSearchChange} />
-            </label>
+            <input
+              className="search_box"
+              type="text"
+              value={search}
+              onChange={this.handleSearchChange} 
+              placeholder="Search Backwork"
+            />
         
+            {this.state.professorData && (
             <label className = "box">
               Select Professor:   
-              <select value={selectedProfessor} onChange={this.handleProfessorChange}>
-                {classData.professors.map(professor => (
-                  <option value={professor}>{professor}</option>
+              <select value={ProfID} onChange={this.handleProfessorChange}>
+                <option value="">All Professors</option>
+                {this.state.professorData.map(professor => (
+                  <option key={professor.ID} value={professor.ID}>{professor.name}</option>
                 ))}
               </select>
             </label>
+            )}
+            <CheckBox 
+              onCheckBoxToggle={(checked) => this.handleClassClick(currentClass, checked)}
+            /> 
+
             {this.state.backworkData && (
             <div className="uploaded-items">
               {this.state.backworkData.map((backwork) => (
@@ -340,7 +403,10 @@ class Home extends React.Component {
             </div>
           )}
 
-            <Upload />
+          <Upload 
+          selectedDepartment={this.state.selectedDepartment}
+          CourseId={this.state.currentClass}
+          />
           </div>
           </div>
         );
@@ -357,7 +423,7 @@ class Home extends React.Component {
           <h2>{majorData.name}</h2>
           <ul>
             {majorData.classes.map((cls) => (
-              <li key={cls.id} onClick={() => this.handleClassClick(cls.id)} className="class-item">
+              <li key={cls.id} onClick={() => this.handleClassClick(cls.id, false)} className="class-item">
                 {cls.name}
               </li>
             ))}
@@ -374,7 +440,7 @@ class Home extends React.Component {
           <h2>{deptData.name}</h2>
           <ul>
             {deptData.majors.map((major) => (
-              <li key={major.id} onClick={() => this.handleMajorClick(major.id)} className="class-item">
+              <li key={major.id} onClick={() => this.handleMajorClick(major.id, major.name)} className="class-item">
                 {major.name}
               </li>
             ))}

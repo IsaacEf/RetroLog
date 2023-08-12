@@ -1,0 +1,16 @@
+input[type="checkbox"] {
+    margin-right: 8px;
+  }
+  
+  /* Style for the label */
+  label {
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* Style for the backwork elements */
+  
+  /* Style for hiding backwork elements */
+  .backwork.hidden {
+    display: none;
+  }

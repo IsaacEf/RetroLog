@@ -1,18 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import Validation from './UploadValidation';
 import './Upload.css';
 import axios from 'axios';
 
-export default function Upload() {
+export default function Upload( { selectedDepartment, CourseId }) {
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState({
     filename: '',
     professorid: '',
     file: null,
-    err: false
+    err: false,
   });
   const [errors, setErrors] = useState({});
+  const [professorData, setProfessorData] = useState([]);
+  
+  useEffect(() => {
+    async function fetchProfessors() {
+      const token = localStorage.getItem('jwtToken');
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      };
+      try {
+        const response = await axios.post('http://localhost:8000/api/professors', {
+          dept: selectedDepartment
+        }, { headers });
+        const data = response.data.professors;
+        setProfessorData(data);
+      } catch (error) {
+        console.error('Error fetching professors: ', error);
+      }
+    }
+    fetchProfessors();
+  }, [selectedDepartment]);
 
   const handleOpenPopup = () => {
     setShowPopup(true);
@@ -30,7 +51,12 @@ export default function Upload() {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    if (name === 'professorid') {
+      const selectedIndex = (parseInt(value)+1).toString(); // Convert the value to an integer
+      setFormData({ ...formData, [name]: selectedIndex });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleFileChange = (event) => {
@@ -60,9 +86,14 @@ export default function Upload() {
       var formDataToSend = new FormData();
       formDataToSend.append('file', formData.file);
       var fname = formData.filename;
-      var cid = '1';
-      var profid = '1';
-      axios.post(`http://localhost:8000/api/upload?filename=${fname}&courseid=${cid}&professorid=${profid}`, formDataToSend, { headers })
+      var cid = CourseId.toString();
+      var profid = formData.professorid;
+      axios
+        .post(
+          `http://localhost:8000/api/upload?filename=${fname}&courseid=${cid}&professorid=${profid}`,
+          formDataToSend,
+          { headers }
+        )
         .then((response) => {
           console.log(response);
         })
@@ -103,14 +134,18 @@ export default function Upload() {
             </div>
             <div>
               <label htmlFor="professor">Professor:</label>
-              <input
-                type="text"
+              <select
                 id="professor"
-                placeholder="Professor"
                 name="professorid"
-                value={formData.professorid}
                 onChange={handleInputChange}
-              />
+              >
+                <option value="">Select Professor</option>
+                {professorData.map((professor,index) => (
+                  <option key={professor.id} value={index}>
+                    {professor.name}
+                  </option>
+                ))}
+              </select>
               {errors.professorid && <p className="error-message">{errors.professorid}</p>}
             </div>
             <div>
@@ -132,13 +167,10 @@ export default function Upload() {
                 </button>
               </div>
             )}
-           
             <button type="submit">Submit</button>
           </form>
         </div>
       </Modal>
     </div>
   );
-};
-
-export { Upload }
+}
