@@ -52,35 +52,33 @@ export default function SignUp() {
         {/* Sign Up heading */}
         <h3>Sign Up</h3>
 
-       {/* First Name Input */}
-<div className="mb-3">
-  <label>First name</label>
-  <input
-    type="text"
-    className="form-control"
-    placeholder="First name"
-    name="firstname"
-    onChange={handleInput}
-    style={{ border: '1px solid #ced4da' }} // Add this line
-  />
-  {/* Display an error message if the firstname validation fails */}
-  {errors.firstname && <span className='text-danger'>{errors.firstname}</span>}
-</div>
+        {/* First Name Input */}
+        <div className="mb-1">
+          <label>First name</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="First name"
+            name="firstname"
+            onChange={handleInput}
+          />
+          {/* Display an error message if the firstname validation fails */}
+          {errors.firstname && <span className='text-danger'>{errors.firstname}</span>}
+        </div>
 
-{/* Last Name Input */}
-<div className="mb-3">
-  <label>Last name</label>
-  <input
-    type="text"
-    className="form-control"
-    placeholder="Last name"
-    name="lastname"
-    onChange={handleInput}
-    style={{ border: '1px solid #ced4da' }} // Add this line
-  />
-  {/* Display an error message if the lastname validation fails */}
-  {errors.lastname && <span className='text-danger'>{errors.lastname}</span>}
-</div>
+        {/* Last Name Input */}
+        <div className="mb-2">
+          <label>Last name</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Last name"
+            name="lastname"
+            onChange={handleInput}
+          />
+          {/* Display an error message if the lastname validation fails */}
+          {errors.lastname && <span className='text-danger'>{errors.lastname}</span>}
+        </div>
 
         {/* Email Address Input */}
         <div className="mb-3">
@@ -97,7 +95,7 @@ export default function SignUp() {
         </div>
 
         {/* Password Input */}
-        <div className="mb-3">
+        <div className="mb-4">
           <label>Password</label>
           <input
             type={visible ? "text" : "password"}
