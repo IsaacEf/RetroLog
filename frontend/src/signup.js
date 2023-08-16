@@ -63,12 +63,11 @@ export default function SignUp() {
             placeholder="First name"
             name="firstname"
             onChange={handleInput}
+            style={{ border: '1px solid #ced4da', borderRadius: '0.25rem' }}
           />
-          {/* Display an error message if the firstname validation fails */}
           {errors.firstname && <span className='text-danger'>{errors.firstname}</span>}
         </div>
 
-        {/* Last Name Input */}
         <div className="mb-2">
           <label>Last name</label>
           <input
@@ -77,8 +76,8 @@ export default function SignUp() {
             placeholder="Last name"
             name="lastname"
             onChange={handleInput}
+            style={{ border: '1px solid #ced4da', borderRadius: '0.25rem' }}
           />
-          {/* Display an error message if the lastname validation fails */}
           {errors.lastname && <span className='text-danger'>{errors.lastname}</span>}
         </div>
 

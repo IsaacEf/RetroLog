@@ -152,3 +152,9 @@ body, html, .App, #root, .auth-wrapper {
   right: 10px; /* Adjust as needed */
   cursor: pointer;
 }
+
+
+.outlined-input {
+  border: 1px solid #ced4da; /* Adjust the color as needed */
+  border-radius: 0.25rem; /* Adjust the radius as needed */
+}
