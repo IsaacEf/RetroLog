@@ -127,8 +127,10 @@ export default function Upload( { selectedDepartment, CourseId }) {
                 id="filename"
                 placeholder="Filename"
                 name="filename"
+    
                 value={formData.filename}
                 onChange={handleInputChange}
+                style={{ border: '1px solid #ced4da', borderRadius: '0.25rem' }}
               />
               {errors.filename && <p className="error-message">{errors.filename}</p>}
             </div>

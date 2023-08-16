@@ -120,3 +120,41 @@ body, html, .App, #root, .auth-wrapper {
 .sign-up a:hover {
   color: #167bff; 
 }
+
+
+.links-container {
+  display: flex;
+  justify-content: space-between; /* This will push the links to opposite ends */
+  align-items: center;
+}
+
+.links-container a {
+  text-decoration: none;
+  color: grey; /* You can adjust the color as needed */
+}
+
+.links-container a:hover {
+  text-decoration: underline;
+}
+
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input {
+  padding-right: 40px; /* Adjust as needed */
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px; /* Adjust as needed */
+  cursor: pointer;
+}
+
+
+.outlined-input {
+  border: 1px solid #ced4da; /* Adjust the color as needed */
+  border-radius: 0.25rem; /* Adjust the radius as needed */
+}

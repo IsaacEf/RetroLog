@@ -3,6 +3,8 @@ import Validation from './SignupValidation'
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
+import './index.css';
+
 
 export default function SignUp() {
     const [values,setValues] = useState({
@@ -61,12 +63,11 @@ export default function SignUp() {
             placeholder="First name"
             name="firstname"
             onChange={handleInput}
+            style={{ border: '1px solid #ced4da', borderRadius: '0.25rem' }}
           />
-          {/* Display an error message if the firstname validation fails */}
           {errors.firstname && <span className='text-danger'>{errors.firstname}</span>}
         </div>
 
-        {/* Last Name Input */}
         <div className="mb-2">
           <label>Last name</label>
           <input
@@ -75,8 +76,8 @@ export default function SignUp() {
             placeholder="Last name"
             name="lastname"
             onChange={handleInput}
+            style={{ border: '1px solid #ced4da', borderRadius: '0.25rem' }}
           />
-          {/* Display an error message if the lastname validation fails */}
           {errors.lastname && <span className='text-danger'>{errors.lastname}</span>}
         </div>
 
@@ -97,19 +98,19 @@ export default function SignUp() {
         {/* Password Input */}
         <div className="mb-4">
           <label>Password</label>
+          <div className="password-container">
           <input
             type={visible ? "text" : "password"}
-            className="form-control"
+            className="form-control password-input"
             placeholder="Enter password"
             name="password"
             onChange={handleInput}
           />
-          {/* Display an error message if the password validation fails */}
-          {errors.password && <span className='text-danger'>{errors.password}</span>}
-          {/* Show an eye icon to toggle password visibility */}
-          <div className="p-2" onClick={() => setVisible(!visible)}>
+          <div className="eye-icon" onClick={() => setVisible(!visible)}>
             {visible ? <EyeOutlined /> : <EyeInvisibleOutlined />}
           </div>
+        </div>
+
         </div>
 
         {/* Sign Up button */}
