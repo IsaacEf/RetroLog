@@ -58,17 +58,19 @@ export default function Login() {
         {/* Password input field */}
         <div className="mb-2">
           <label>Password</label>
+          <div className="password-container">
           <input
             type={visible ? "text" : "password"}
-            className="form-control"
+            className="form-control password-input"
             placeholder="Enter password"
             name="password"
             onChange={handleInput}
           />
-          {/* Icon to toggle password visibility */}
-          <div className="p-2" onClick={() => setVisible(!visible)}>
+          <div className="eye-icon" onClick={() => setVisible(!visible)}>
             {visible ? <EyeOutlined /> : <EyeInvisibleOutlined />}
           </div>
+        </div>
+
           {errors.password && <span className='text-danger'>{errors.password}</span>}
         </div>
     

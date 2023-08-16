@@ -137,10 +137,18 @@ body, html, .App, #root, .auth-wrapper {
   text-decoration: underline;
 }
 
-.register-link {
-  /* Add any specific styling for the register link here */
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
-.forgot-password-link {
-  /* Add any specific styling for the forgot password link here */
+.password-input {
+  padding-right: 40px; /* Adjust as needed */
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px; /* Adjust as needed */
+  cursor: pointer;
 }
