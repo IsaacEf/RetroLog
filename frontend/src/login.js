@@ -3,6 +3,7 @@ import Validation from './LoginValidation'
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
+import './index.css';
 
 export default function Login() {
     const [values,setValues] = useState({
@@ -85,23 +86,19 @@ export default function Login() {
           </div>
         </div>
     
-        {/* Login button */}
-        <div className="d-grid">
-          <button type="submit" className="btn btn-primary">
-            Login
-          </button>
-        </div>
-    
-        {/* Sign up link */}
-        <p className="sign-up text-left">
-          <a href="/sign-up">Register/Signup</a>
-        </p>
-    
-        {/* Forgot password link */}
-        <p className="forgot-password text-right">
-          Forgot<a href=""> password?</a>
-        </p>
-      </form>
+         {/* Login button */}
+    <div className="d-grid">
+      <button type="submit" className="btn btn-primary">
+        Login
+      </button>
+    </div>
+
+    {/* Register and Forgot password links */}
+    <div className="links-container text-left">
+      <a href="/sign-up" className="register-link">Register/Signup</a>
+      <a href="" className="forgot-password-link">Forgot password?</a>
+    </div>
+  </form>
     );    
   }
 export {Login}
