@@ -22,7 +22,7 @@ func GetAllProfessors(context *gin.Context) {
 
 	var profs []model.Professor
 	fmt.Println("department query param: ", input.Department)
-	err := database.Database.Where("department=?", "CSCI").Find(&profs).Error
+	err := database.Database.Where("department=?", input.Department).Find(&profs).Error
 
 	if err != nil {
 		context.JSON(http.StatusNotFound, gin.H{"error": "database query failed"})
