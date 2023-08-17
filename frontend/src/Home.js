@@ -395,7 +395,6 @@ refreshBackworkData = async () => {
               </select>
             </label>
             )}
-
             <CheckBox 
               onCheckBoxToggle={(checked) => this.handleClassClick(currentClass, checked)}
             /> 
