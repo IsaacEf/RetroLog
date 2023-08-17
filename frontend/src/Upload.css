@@ -136,7 +136,7 @@ button[type="button"]:hover {
 
 /* Grey box styles */
 .grey-box {
-  background-color: grey;
+  background-color: white;
   padding: 20px;
   display: flex;
   flex-direction: column;
