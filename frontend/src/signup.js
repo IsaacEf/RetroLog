@@ -3,16 +3,8 @@ import Validation from './SignupValidation'
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
 import './login.css';
 
->>>>>>> Stashed changes
-=======
-import './index.css';
-
->>>>>>> a7325c4a2822048b5b4a1213883f76cec4cd07e5
 
 export default function SignUp() {
     const [values,setValues] = useState({
@@ -71,20 +63,12 @@ export default function SignUp() {
             placeholder="First name"
             name="firstname"
             onChange={handleInput}
-<<<<<<< HEAD
           />
           {/* Display an error message if the firstname validation fails */}
           {errors.firstname && <span className='text-danger'>{errors.firstname}</span>}
         </div>
 
         {/* Last Name Input */}
-=======
-            style={{ border: '1px solid #ced4da', borderRadius: '0.25rem' }}
-          />
-          {errors.firstname && <span className='text-danger'>{errors.firstname}</span>}
-        </div>
-
->>>>>>> a7325c4a2822048b5b4a1213883f76cec4cd07e5
         <div className="mb-2">
           <label>Last name</label>
           <input
@@ -93,13 +77,8 @@ export default function SignUp() {
             placeholder="Last name"
             name="lastname"
             onChange={handleInput}
-<<<<<<< HEAD
           />
           {/* Display an error message if the lastname validation fails */}
-=======
-            style={{ border: '1px solid #ced4da', borderRadius: '0.25rem' }}
-          />
->>>>>>> a7325c4a2822048b5b4a1213883f76cec4cd07e5
           {errors.lastname && <span className='text-danger'>{errors.lastname}</span>}
         </div>
 
@@ -120,19 +99,19 @@ export default function SignUp() {
         {/* Password Input */}
         <div className="mb-4">
           <label>Password</label>
-          <div className="password-container">
           <input
             type={visible ? "text" : "password"}
-            className="form-control password-input"
+            className="form-control"
             placeholder="Enter password"
             name="password"
             onChange={handleInput}
           />
-          <div className="eye-icon" onClick={() => setVisible(!visible)}>
+          {/* Display an error message if the password validation fails */}
+          {errors.password && <span className='text-danger'>{errors.password}</span>}
+          {/* Show an eye icon to toggle password visibility */}
+          <div className="p-2" onClick={() => setVisible(!visible)}>
             {visible ? <EyeOutlined /> : <EyeInvisibleOutlined />}
           </div>
-        </div>
-
         </div>
 
         {/* Sign Up button */}

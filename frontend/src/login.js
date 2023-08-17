@@ -3,14 +3,7 @@ import Validation from './LoginValidation'
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
 import './login.css';
->>>>>>> Stashed changes
-=======
-import './index.css';
->>>>>>> a7325c4a2822048b5b4a1213883f76cec4cd07e5
 
 export default function Login() {
     const [values,setValues] = useState({
@@ -64,19 +57,17 @@ export default function Login() {
         {/* Password input field */}
         <div className="mb-2">
           <label>Password</label>
-          <div className="password-container">
           <input
             type={visible ? "text" : "password"}
-            className="form-control password-input"
+            className="form-control"
             placeholder="Enter password"
             name="password"
             onChange={handleInput}
           />
-          <div className="eye-icon" onClick={() => setVisible(!visible)}>
+          {/* Icon to toggle password visibility */}
+          <div className="p-2" onClick={() => setVisible(!visible)}>
             {visible ? <EyeOutlined /> : <EyeInvisibleOutlined />}
           </div>
-        </div>
-
           {errors.password && <span className='text-danger'>{errors.password}</span>}
         </div>
     
@@ -94,19 +85,23 @@ export default function Login() {
           </div>
         </div>
     
-         {/* Login button */}
-    <div className="d-grid">
-      <button type="submit" className="btn btn-primary">
-        Login
-      </button>
-    </div>
-
-    {/* Register and Forgot password links */}
-    <div className="links-container text-left">
-      <a href="/sign-up" className="register-link">Register/Signup</a>
-      <a href="" className="forgot-password-link">Forgot password?</a>
-    </div>
-  </form>
+        {/* Login button */}
+        <div className="d-grid">
+          <button type="submit" className="btn btn-primary">
+            Login
+          </button>
+        </div>
+    
+        {/* Sign up link */}
+        <p className="sign-up text-left">
+          <a href="/sign-up">Register/Signup</a>
+        </p>
+    
+        {/* Forgot password link */}
+        <p className="forgot-password text-right">
+          Forgot<a href=""> password?</a>
+        </p>
+      </form>
     );    
   }
 export {Login}
