@@ -3,6 +3,11 @@ import Validation from './SignupValidation'
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
+<<<<<<< Updated upstream
+=======
+import './login.css';
+
+>>>>>>> Stashed changes
 
 export default function SignUp() {
     const [values,setValues] = useState({

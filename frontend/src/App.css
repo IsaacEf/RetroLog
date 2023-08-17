@@ -18,5 +18,21 @@
   height: 120px; /* Adjust the height as needed */
 }
 
+.auth-wrapper form * {
+  box-sizing: border-box;
+}
+
+
+/* Body styles */
+body {
+background: #1c8ef9 !important; /* Set the background color */
+min-height: 100vh; /* Set the minimum height of the body to the full viewport height */
+display: flex; 
+font-weight: 400; /* Set default font weight */
+font-family: "Fira Sans", sans-serif; 
+}
+
+
+
 
 

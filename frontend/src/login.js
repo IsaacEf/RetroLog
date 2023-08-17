@@ -3,6 +3,10 @@ import Validation from './LoginValidation'
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
+<<<<<<< Updated upstream
+=======
+import './login.css';
+>>>>>>> Stashed changes
 
 export default function Login() {
     const [values,setValues] = useState({
@@ -25,7 +29,6 @@ export default function Login() {
       })
       .then(response => {
         localStorage.setItem('jwtToken', response.data.jwt);
-        console.log("Token:" + response.data.jwt)
         navigate('/Home')
       })
       .catch(err => {
