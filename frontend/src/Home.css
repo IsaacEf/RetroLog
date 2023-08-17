@@ -1,4 +1,6 @@
 /* Global Variables */
+
+
 :root {
   --header-bg-color: #282c34;
   --text-color-white: white;
@@ -97,6 +99,7 @@ li.class-item > p {
 
 /* Button Styling */
 button.goBack {
+  margin-top: -10px;
   margin-bottom: 10px;
 }
 

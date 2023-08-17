@@ -254,7 +254,7 @@ class Home extends React.Component {
   };
 
   handleClassClick = async (id, verifiedOnly) => {
-    this.setState({ currentClass: id });
+    this.setState({ currentClass: id, ProfID: null });
   
     const jwt = localStorage.getItem('jwtToken');
     const headers = {
@@ -329,6 +329,35 @@ class Home extends React.Component {
   }
 };
 
+refreshBackworkData = async () => {
+  const { currentClass, selectedDepartment } = this.state;
+
+  if (currentClass !== null) {
+    const jwt = localStorage.getItem('jwtToken');
+    const headers = {
+      Authorization: `Bearer ${jwt}`,
+      'Content-Type': 'application/json',
+    };
+
+    try {
+      const response = await axios.post(
+        'http://localhost:8000/api/backworks',
+        {
+          courseid: currentClass,
+          professorid: null,
+          verified: false,
+        },
+        { headers }
+      );
+
+      const backworkData = response.data.backworks;
+      this.setState({ backworkData }); // Update the backworkData in the state
+    } catch (err) {
+      console.error(err);
+    }
+  }
+};
+
 
   render() {
     const { departments, currentDepartment, currentMajor, currentClass, search, ProfID } = this.state;
@@ -342,11 +371,12 @@ class Home extends React.Component {
 
       return (
         <div className="backwork-page"> {/* Add this class here */}
-        <button onClick={this.handleBackClick}>Go Back</button>
+        <div className="home-container">
+        <button onClick={this.handleBackClick}
+        >Go Back</button>
         <h2>{classData.name}</h2>
   
           <div>
-          
             <input
               className="search_box"
               type="text"
@@ -354,7 +384,6 @@ class Home extends React.Component {
               onChange={this.handleSearchChange} 
               placeholder="Search Backwork"
             />
-        
             {this.state.professorData && (
             <label className = "box">
               Select Professor:   
@@ -376,11 +405,6 @@ class Home extends React.Component {
                 <div key={backwork.uuid} className="uploaded-item">
                   <h2>{backwork.fileName}</h2>
                   <button onClick={() => this.handleDownload(backwork.url, backwork.fileName)}>Download File</button>
-                  
-                  {/*<p>Course ID: {backwork.courseId}</p>
-                  <p>Professor ID: {backwork.professorId}</p>
-                    <p>Verified: {backwork.verified ? 'Yes' : 'No'}</p>
-              <p>User ID: {backwork.userId}</p> */}
                 </div>
               ))}
             </div>
@@ -389,7 +413,9 @@ class Home extends React.Component {
           <Upload 
           selectedDepartment={this.state.selectedDepartment}
           CourseId={this.state.currentClass}
+          onSuccessfulUpload={this.refreshBackworkData}
           />
+          </div>
           </div>
           </div>
         );
@@ -401,7 +427,7 @@ class Home extends React.Component {
         .find((dept) => dept.id === currentDepartment)
         .majors.find((major) => major.id === currentMajor);
       return (
-        <div>
+        <div className="home-container">
           <button onClick={this.handleBackClick}>Go Back</button>
           <h2>{majorData.name}</h2>
           <ul>
@@ -418,7 +444,7 @@ class Home extends React.Component {
     if (currentDepartment !== null) {
       const deptData = departments.find((dept) => dept.id === currentDepartment);
       return (
-        <div>
+        <div className="home-container">
           <button onClick={this.handleBackClick}>Go Back</button>
           <h2>{deptData.name}</h2>
           <ul>

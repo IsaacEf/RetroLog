@@ -1,6 +1,7 @@
 import React , {useRef} from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import './login.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import logo from './retro_logo.png';
 
@@ -47,13 +48,11 @@ function App() {
               {<Route exact path="/" element={<Login />} />}
               {/* Route for the Sign-in page */}
               
-                {<Route path="/sign-in" element={<Login />} />}
+              {<Route path="/sign-in" element={<Login />} />}
                 {/* Route for the Sign-up page */}
-                 {<Route path="/sign-up" element={<SignUp />} />}
-              
-       
-                 <Route path="/home" element={<Home ref={homeRef} />} />
+              {<Route path="/sign-up" element={<SignUp />} />}
 
+              <Route path="/home" element={<Home ref={homeRef} />} />
 
             </Routes>
           </div>

@@ -5,33 +5,7 @@
 @import url("https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800");
 
 /* Global styling */
-* {
-  box-sizing: border-box;
-}
 
-
-.uploaded-items {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.uploaded-item {
-  flex: 1 0 calc(33.333% - 20px); /* Three items per row */
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-
-/* Body styles */
-body {
-  background: #1c8ef9 !important; /* Set the background color */
-  min-height: 100vh; /* Set the minimum height of the body to the full viewport height */
-  display: flex; 
-  font-weight: 400; /* Set default font weight */
-  font-family: "Fira Sans", sans-serif; 
-}
 
 /* Heading and label styles */
 h1, h2, h3, h4, h5, h6, label, span {

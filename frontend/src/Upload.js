@@ -4,7 +4,11 @@ import Validation from './UploadValidation';
 import './Upload.css';
 import axios from 'axios';
 
+<<<<<<< HEAD
+export default function Upload( { selectedDepartment, CourseId, onSuccessfulUpload }) {
+=======
 export default function Upload( { selectedDepartment, CourseId }) {
+>>>>>>> a7325c4a2822048b5b4a1213883f76cec4cd07e5
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState({
     filename: '',
@@ -28,7 +32,12 @@ export default function Upload( { selectedDepartment, CourseId }) {
         }, { headers });
         const data = response.data.professors;
         setProfessorData(data);
+<<<<<<< HEAD
+      } 
+       catch (error) {
+=======
       } catch (error) {
+>>>>>>> a7325c4a2822048b5b4a1213883f76cec4cd07e5
         console.error('Error fetching professors: ', error);
       }
     }
@@ -96,6 +105,7 @@ export default function Upload( { selectedDepartment, CourseId }) {
         )
         .then((response) => {
           console.log(response);
+          onSuccessfulUpload();
         })
         .catch((err) => {
           response = 400;
