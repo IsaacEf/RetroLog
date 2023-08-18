@@ -3,7 +3,7 @@ function Validation(values,response) {
 
     //without space character accept all 
     const email_pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    //at least 1 digit, at least one character ,at least one capital character and minimum 8 
+    //at least 1 digit, at least one character,at least one capital character and minimum 8 
     const password_pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/
 
     if (values.firstname === "") {
