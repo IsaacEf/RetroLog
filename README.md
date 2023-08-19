@@ -1,15 +1,15 @@
 # RetroLog
 
-### Team: 
+## Team: 
 Niels Mandrus, Kulindu Cooray, Isaac Efrosman, Michael Meng, Colin Langella
 
-### Zip File
+## Zip File
 
 Right-click on the RetroLog zip file and press unzip to retrieve the RetroLog folder
 Open a command line terminal and change the directory to the unzipped folder
 
 
-### Frontend Setup
+## Frontend Setup
 
 Install the latest Node.js version
 
@@ -30,7 +30,7 @@ Now navigate to `RetroLog/frontend/src`  on the terminal and run
 
 This will create the build folder and now the backend has to be run
 
-### Backend Setup
+## Backend Setup
 
 Download the most recent version of Golang
 Be sure to install the proper installer for your architecture
@@ -40,6 +40,10 @@ Be sure to install the proper installer for your architecture
 To start the webserver navigate to the `RetroLog/backend/` folder in a terminal and run 
 
 `$ go run main.go`
+
+## Backend API
+
+Our backend implements a REST API which has been documented [here](https://github.com/IsaacEf/RetroLog/blob/main/docs/backend-api.md)
 
 ## Website
 
